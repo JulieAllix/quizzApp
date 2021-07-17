@@ -1,0 +1,38 @@
+.Component-SignUp {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  &__inputsWrapper {
+    width: 100%;
+    padding: 40px;
+  }
+
+  &__inputWrapper {
+    margin-bottom: 20px;
+  }
+
+  &__label {
+    font-size: 40px;
+  }
+
+  &__buttonWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .ant-input {
+    font-size: 40px;
+  }
+
+  .ant-btn-round.ant-btn-lg  {
+    font-size: 40px;
+    height: 100px;
+    width: 400px;
+    padding: 10px 20px;
+  }
+}
