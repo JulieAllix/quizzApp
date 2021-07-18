@@ -5,7 +5,7 @@ import "./InputCustom.scss";
 
 interface Props {
     label: string;
-    value: string;
+    value: string ;
     setValue: (value: string) => void
 }
 
