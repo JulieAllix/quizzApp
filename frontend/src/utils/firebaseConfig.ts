@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import {Card} from "@Models/types/bases/Form";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCpCJHA29oT95x77kPiGklBosw-5Ryneu4",
@@ -39,4 +40,20 @@ export const createSpanishData = async (itemUid: string, data: any) => {
         frenchValue: data.frenchValue,
         spanishValue: data.spanishValue
     });
+};
+
+// QUIZZ
+
+export const getAllCards = async (): Promise<Card[]> => {
+    const cardsData = await spanishRef.get();
+    const cardsDataArray = cardsData.docs.map(document => document.data());
+
+    const _cardsDataArray = cardsDataArray.map(cardData => {
+        return {
+            uid: cardData.uid,
+            frenchValue: cardData.frenchValue,
+            spanishValue: cardData.spanishValue
+        }
+    });
+    return _cardsDataArray;
 };

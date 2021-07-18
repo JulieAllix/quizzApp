@@ -1,0 +1,32 @@
+.Component-Quizz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  &__card {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: calc(100vw - 70px);
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__cardContent {
+    font-size: 40px;
+  }
+
+  &__buttonsWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__buttonWrapper {
+    margin: 0 20px;
+  }
+}

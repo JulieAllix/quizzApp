@@ -3,6 +3,7 @@ import {useState} from "react";
 import { Tabs } from 'antd';
 
 import {Form} from "../form/Form";
+import {Quizz} from "../quizz/Quizz";
 
 import "./AppContent.scss";
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export const AppContent = (props: Props) => {
-    const [tab, setTab] = useState<string>('1');
+    const [tab, setTab] = useState<string>('2');
 
     const { TabPane } = Tabs;
 
@@ -27,7 +28,7 @@ export const AppContent = (props: Props) => {
                     <Form />
                 </TabPane>
                 <TabPane tab="Quizz" key="2">
-                    Content of Tab Pane 2
+                    <Quizz />
                 </TabPane>
             </Tabs>
         </div>
