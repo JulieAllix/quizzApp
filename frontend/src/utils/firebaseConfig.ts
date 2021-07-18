@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCpCJHA29oT95x77kPiGklBosw-5Ryneu4",
@@ -14,6 +15,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+const db = firebase.firestore();
+
+const spanishRef = db.collection('espagnol');
+
+// AUTH
 
 export const registerWithEmailAndPassword = (email:string,password:string) =>{
     return auth.createUserWithEmailAndPassword(email,password);
@@ -21,4 +27,16 @@ export const registerWithEmailAndPassword = (email:string,password:string) =>{
 
 export const loginWithEmailAndPassword = (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password)
+};
+
+
+// FORM
+
+export const createSpanishData = async (itemUid: string, data: any) => {
+
+    return spanishRef.doc(itemUid).set({
+        uid: itemUid,
+        frenchValue: data.frenchValue,
+        spanishValue: data.spanishValue
+    });
 };

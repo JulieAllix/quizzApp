@@ -1,0 +1,17 @@
+.Component-ButtonCustom {
+
+  &__buttonWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .ant-btn-round.ant-btn-lg  {
+    font-size: 40px;
+    height: 100px;
+    width: 400px;
+    padding: 10px 20px;
+  }
+}

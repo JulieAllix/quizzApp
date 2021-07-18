@@ -1,6 +1,8 @@
 import * as React from "react";
 import {useState} from "react";
-import { Button, Input } from 'antd';
+
+import {ButtonCustom} from "../../components/ButtonCustom";
+import {InputCustom} from "../../components/InputCustom";
 
 import {registerWithEmailAndPassword} from "@Utils/firebaseConfig";
 import "./SignUp.scss";
@@ -24,27 +26,9 @@ export const SignUp = (props: Props) => {
     return (
         <div className={'Component-SignUp'}>
             <div className={'Component-SignUp__inputsWrapper'}>
-                <div className={'Component-SignUp__inputWrapper'}>
-                    <div className={'Component-SignUp__label'}>Adresse e-mail</div>
-                    <Input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        size={"large"}
-                    />
-                </div>
-                <div className={'Component-SignUp__inputWrapper'}>
-                    <div className={'Component-SignUp__label'}>Mot de passe</div>
-                    <Input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        size={"large"}
-                    />
-                </div>
-                <div className={'Component-SignUp__buttonWrapper'}>
-                    <Button size={"large"} shape={"round"} onClick={handleRegister}>
-                        S'inscrire
-                    </Button>
-                </div>
+                <InputCustom label={'Adresse e-mail'} value={email} setValue={setEmail}/>
+                <InputCustom label={'Mot de passe'} value={password} setValue={setPassword}/>
+                <ButtonCustom onClick={handleRegister}>S'inscrire</ButtonCustom>
             </div>
         </div>
     )
