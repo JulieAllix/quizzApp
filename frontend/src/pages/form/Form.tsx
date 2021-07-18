@@ -43,6 +43,7 @@ export const Form = (props: Props) => {
 
     return (
         <div className={'Component-Form'}>
+            <div className={'Component-Form__instruction'}>Veuillez saisir les valeurs de votre nouvelle carte de quizz :</div>
             <InputCustom label={'Valeur en français'} value={frenchValue} setValue={setFrenchValue}/>
             <InputCustom label={'Valeur en espagnol'} value={spanishValue} setValue={setSpanishValue}/>
             <ButtonCustom color={'green'} onClick={handleSend}>Envoyer</ButtonCustom>

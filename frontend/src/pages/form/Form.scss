@@ -7,4 +7,13 @@
   height: 100vh;
   //align-items: center;
   justify-content: center;
+
+  &__instruction {
+    font-size: 40px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 100px;
+    text-align: center;
+  }
 }
