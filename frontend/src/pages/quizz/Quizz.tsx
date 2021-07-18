@@ -27,7 +27,13 @@ export const Quizz = (props: Props) => {
 
     const handleNext = () => {
         setLanguage('french');
-        setQuizzIndex(quizzIndex + 1)
+        if (quizzIndex + 1 === cardsData.length) {
+            setQuizzIndex(0);
+            setCardsData([]);
+        } else {
+            setQuizzIndex(quizzIndex + 1);
+        }
+
     };
 
     return (
