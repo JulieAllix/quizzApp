@@ -1,3 +1,5 @@
+@import "src/assets/css/variables";
+
 .Component-ButtonCustom {
 
   &__buttonWrapper {
@@ -10,8 +12,16 @@
 
   .ant-btn-round.ant-btn-lg  {
     font-size: 40px;
-    height: 100px;
-    width: 400px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+
+    height: 110px!important;
+    min-width: 400px;
     padding: 10px 20px;
+    background: linear-gradient(130.76deg, #81E4B5 17.01%, #35D98B 84.88%);
+    border-radius: 50px;
   }
 }

@@ -1,3 +1,5 @@
+@import "src/assets/css/variables";
+
 .Component-InputCustom {
 
   &__inputWrapper {
@@ -5,10 +7,21 @@
   }
 
   &__label {
-    font-size: 40px;
+    font-size: 32px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
   }
 
   .ant-input {
     font-size: 40px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  .ant-input-lg {
+    padding: 15px 20px;
   }
 }

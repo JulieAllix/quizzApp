@@ -1,0 +1,38 @@
+//// COLORS ////
+
+//GREEN PRIMARY//
+$primary_green: #81E6B6;
+$green_light: #CDF4E2;
+$green_dark: #1da464;
+
+//BLUE PRIMARY//
+$blue_dark: #0A548B;
+$blue_regular: #41A7F2;
+$blue_light: #DDF1FF;
+$blue_sky: #ADD9FA;
+
+//WHITE//
+$white_regular: #FFFFFF;
+$black_regular: #0E1B24;
+$grey_regular : #C7C7C7;
+$grey_dark : #757575;
+$grey_light : #E1E1E1;
+$black_disabled: #efefef;
+
+//OTHER//
+$red_regular: #FF6565;
+$yellow_regular: #FFDAA3;
+$yellow_darker: #FFB951;
+
+//CHAT ELEMENTS//
+$my_color: #8E8E8E;
+$interlocutor_color: #41A7F2;
+
+//UI ELEMENTS//
+$green_gradient: linear-gradient(130.76deg, #81E4B5 17.01%, #35D98B 84.88%);
+$blue_gradient: linear-gradient(130.76deg, #7DC8FF 17.01%, #41A7F2 84.88%);
+$yellow_gradient: linear-gradient(130.76deg, #FFDAA3 17.01%, #FFB951 84.88%);
+$red_gradient: linear-gradient(130.76deg, #FF6565 17.01%, #C55D5D 84.88%);
+
+//// FONTS ////
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Open+Sans:wght@400;500;600;700&family=Roboto&family=Work+Sans:wght@400;500;600;700&display=swap);
