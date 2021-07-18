@@ -35,7 +35,7 @@ export const SignIn = (props: Props) => {
             <div className={'Component-SignIn__inputsWrapper'}>
                 <InputCustom label={'Adresse e-mail'} value={email} setValue={setEmail}/>
                 <InputCustom label={'Mot de passe'} value={password} setValue={setPassword}/>
-                <ButtonCustom onClick={handleSignIn}>Se connecter</ButtonCustom>
+                <ButtonCustom color={'green'} onClick={handleSignIn}>Se connecter</ButtonCustom>
             </div>
         </div>
     )

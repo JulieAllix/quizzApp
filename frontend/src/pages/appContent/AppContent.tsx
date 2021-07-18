@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const AppContent = (props: Props) => {
-    const [tab, setTab] = useState<string>('2');
+    const [tab, setTab] = useState<string>('1');
 
     const { TabPane } = Tabs;
 

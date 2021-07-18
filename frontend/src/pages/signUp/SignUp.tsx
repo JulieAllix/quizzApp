@@ -28,7 +28,7 @@ export const SignUp = (props: Props) => {
             <div className={'Component-SignUp__inputsWrapper'}>
                 <InputCustom label={'Adresse e-mail'} value={email} setValue={setEmail}/>
                 <InputCustom label={'Mot de passe'} value={password} setValue={setPassword}/>
-                <ButtonCustom onClick={handleRegister}>S'inscrire</ButtonCustom>
+                <ButtonCustom color={'green'} onClick={handleRegister}>S'inscrire</ButtonCustom>
             </div>
         </div>
     )

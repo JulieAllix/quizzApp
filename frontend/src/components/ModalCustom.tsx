@@ -1,5 +1,7 @@
 import * as React from "react";
-import {Modal, Button} from "antd";
+import {Modal} from "antd";
+
+import {ButtonCustom} from "./ButtonCustom";
 
 import "./ModalCustom.scss";
 
@@ -19,12 +21,7 @@ export const ModalCustom: React.FC<Props> = (props) => {
                 onOk={() => props.setVisible(false)}
                 onCancel={() => props.setVisible(false)}
                 footer={[
-                    <Button
-                        type="primary"
-                        onClick={() => props.setVisible(false)}
-                    >
-                        Ok
-                    </Button>
+                    <ButtonCustom color={'green'} onClick={() => props.setVisible(false)}>Ok</ButtonCustom>
                 ]}
             >
                 <div className={'Component-ModalCustom__modalContent'}>
