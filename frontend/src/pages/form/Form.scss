@@ -1,19 +1,19 @@
 @import "src/assets/css/variables";
 
 .Component-Form {
-  padding: 40px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
   //align-items: center;
   justify-content: center;
 
   &__instruction {
-    font-size: 40px;
+    font-size: 18px;
     font-family: Work Sans;
     font-style: normal;
     font-weight: normal;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     text-align: center;
   }
 }

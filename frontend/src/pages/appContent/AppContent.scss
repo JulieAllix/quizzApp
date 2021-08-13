@@ -3,12 +3,12 @@
 .Component-AppContent {
 
   .ant-tabs-nav-list {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     margin: 0 auto;
   }
 
   .ant-tabs-tab {
-    font-size: 60px;
+    font-size: 20px;
     font-family: Work Sans;
     font-style: normal;
     font-weight: bold;
@@ -18,7 +18,7 @@
   .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: $primary_green;
     font-weight: bold;
-    font-size: 60px;
+    font-size: 20px;
     font-family: Work Sans;
     font-style: normal;
   }

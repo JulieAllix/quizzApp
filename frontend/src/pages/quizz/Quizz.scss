@@ -5,27 +5,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
 
   &__startingForm {
     width: 100%;
-    padding: 40px;
+    padding: 20px;
   }
 
   &__card {
     background: #FFFFFF;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    width: calc(100vw - 70px);
-    min-height: 800px;
+    width: calc(100vw - 30px);
+    min-height: 260px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 20px;
   }
 
   &__cardContent {
-    font-size: 60px;
+    font-size: 20px;
     text-align: center;
     font-family: Work Sans;
     font-style: normal;
@@ -38,11 +38,11 @@
 
   &__buttonsWrapper {
     display: flex;
-    width: 100%;
+    width: calc(100vw - 30px);
     justify-content: center;
   }
 
   &__buttonWrapper {
-    margin: 0 20px;
+    margin: 0 10px;
   }
 }
