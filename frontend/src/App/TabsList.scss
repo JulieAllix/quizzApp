@@ -1,0 +1,39 @@
+@import '../assets/css/variables';
+
+.Component_TabsList {
+  &__tabContainer {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+  }
+
+  &__tabList {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+  }
+
+  &__tabItem {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Work Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: black;
+
+    &__active {
+      color: $primary_green;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import "src/assets/css/variables";
+
+.Component_AppHeader {
+  height: 15vh;
+  background-color: $primary_green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__name {
+    color: white;
+    font-size: 26px;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: bold;
+  }
+}

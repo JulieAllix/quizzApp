@@ -17,6 +17,9 @@ module.exports = bootConfigGenerator.then((bootConfig) =>
             chunkFilename: "js/[id]-[name].js",
             publicPath: "/",
         },
+        resolve: {
+            extensions: [".ts", ".js"],
+        },
         plugins: [
             new FaviconsWebpackPlugin(
                 path.join(__dirname, `./assets/img/favicon.${

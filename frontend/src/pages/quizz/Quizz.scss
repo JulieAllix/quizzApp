@@ -1,11 +1,16 @@
 @import "src/assets/css/variables";
 
-.Component-Quizz {
+.Component_Quizz {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
+
+  &__contentWrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 75vh;
+  }
 
   &__startingForm {
     width: 100%;

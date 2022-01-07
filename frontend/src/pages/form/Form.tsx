@@ -8,6 +8,7 @@ import {ModalCustom} from "../../components/ModalCustom";
 
 import {createSpanishData} from "@Utils/firebaseConfig";
 import "./Form.scss";
+import {AppHeader} from "../../components/AppHeader";
 
 interface Props {
 
@@ -22,34 +23,37 @@ export const Form = (props: Props) => {
     const handleSend = () => {
         if (frenchValue === '') {
             setIsModalOpen(true);
-            setModalContent({title: 'Erreur', body: "Veuillez saisir la valeur en français, svp."});
+            setModalContent({title: 'Error', body: "Please enter the french word."});
         } else if (spanishValue === '') {
             setIsModalOpen(true);
-            setModalContent({title: 'Erreur', body: "Veuillez saisir la valeur en espagnol, svp."});
+            setModalContent({title: 'Error', body: "Please enter the spanish translation."});
         } else {
             createSpanishData(v4(), {frenchValue: frenchValue, spanishValue: spanishValue}).then(response => {
                 console.log('response createSpanishData', response);
                 setIsModalOpen(true);
-                setModalContent({title: 'Confirmation', body: 'Votre fiche a bien été ajoutée à la base de données !'});
+                setModalContent({title: 'Success', body: 'Your card has been successfully added to the database !'});
                 setFrenchValue('');
                 setSpanishValue('');
             }).catch(error => {
                 console.log('error createSpanishData', error);
                 setIsModalOpen(true);
-                setModalContent({title: 'Erreur', body: "Votre fiche n'a pas été ajoutée à la base de données."});
+                setModalContent({title: 'Error', body: "Your card couldn't get added to the database."});
             });
         }
     };
 
     return (
         <div className={'Component-Form'}>
-            <div className={'Component-Form__instruction'}>Veuillez saisir les valeurs de votre nouvelle carte de quizz :</div>
-            <InputCustom label={'Valeur en français'} value={frenchValue} setValue={setFrenchValue}/>
-            <InputCustom label={'Valeur en espagnol'} value={spanishValue} setValue={setSpanishValue}/>
-            <ButtonCustom color={'green'} onClick={handleSend}>Envoyer</ButtonCustom>
-            <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
-                {modalContent.body}
-            </ModalCustom>
+            <AppHeader />
+            <div className={'Component-Form__contentWrapper'}>
+                <div className={'Component-Form__instruction'}>Please enter the values of your new quizz card :</div>
+                <InputCustom label={'French word'} value={frenchValue} setValue={setFrenchValue}/>
+                <InputCustom label={'Spanish translation'} value={spanishValue} setValue={setSpanishValue}/>
+                <ButtonCustom color={'green'} onClick={handleSend}>Save</ButtonCustom>
+                <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
+                    {modalContent.body}
+                </ModalCustom>
+            </div>
         </div>
     );
 };

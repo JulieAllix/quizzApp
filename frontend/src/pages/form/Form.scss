@@ -1,12 +1,18 @@
 @import "src/assets/css/variables";
 
 .Component-Form {
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 90vh;
   //align-items: center;
-  justify-content: center;
+
+
+  &__contentWrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 75vh;
+  }
 
   &__instruction {
     font-size: 18px;
