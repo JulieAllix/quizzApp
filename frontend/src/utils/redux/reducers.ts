@@ -1,35 +1,17 @@
 import {combineReducers} from "redux";
 import {User} from "../../../../models/types/bases/User";
+import {createAction, handleActions} from 'redux-actions';
 
-/* STATE DEFINITION  */
-interface UserState {
-    user: User | null,
-}
+export const setUser = createAction<User>("setUser");
 
-const initialState: UserState = {
-    user: null,
-}
+const initialState = null as User;
 // ACTIONS
 
-export function setUser(newUser: User) {
-    return {
-        type: "update_user",
-        payload: newUser
-    }
-}
-
-// REDUCERS
-
-const userReducer = (state = initialState, action: any) => {
-    if (action.type === "update_user") {
-        if (action.payload && action.payload.name === "Error") {
-            return {...state}
-        }
-
+export const userReducer = handleActions({
+    ["setUser"]: (state, action) => {
         return action.payload;
     }
-    return state
-};
+}, initialState);
 
 export const reducers = combineReducers({
     user: userReducer,

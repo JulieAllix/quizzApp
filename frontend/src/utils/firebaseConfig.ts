@@ -30,6 +30,10 @@ export const loginWithEmailAndPassword = (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password)
 };
 
+export const signOut = (): Promise<void> => {
+    return auth.signOut();
+}
+
 
 // FORM
 

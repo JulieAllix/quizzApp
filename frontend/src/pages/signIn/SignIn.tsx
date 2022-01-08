@@ -1,6 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const SignIn = (props: Props) => {
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState<string>('allixjulie@gmail.com');
@@ -31,11 +33,23 @@ export const SignIn = (props: Props) => {
     };
 
     return (
-        <div className={'Component-SignIn'}>
-            <div className={'Component-SignIn__inputsWrapper'}>
-                <InputCustom label={'Adresse e-mail'} value={email} setValue={setEmail}/>
-                <InputCustom label={'Mot de passe'} value={password} setValue={setPassword}/>
-                <ButtonCustom color={'green'} onClick={handleSignIn}>Se connecter</ButtonCustom>
+        <div className={'Component_SignIn'}>
+            <div className={'Component_SignIn__titleWrapper'}>
+                <div className={'Component_SignIn__title'}>Quizz</div>
+                <div className={'Component_SignIn__title'}>App</div>
+            </div>
+            <div className={'Component_SignIn__contentWrapper'}>
+                <div className={'Component_SignIn__subtitle'}>
+                    Sign in
+                </div>
+                <div className={'Component_SignIn__inputsWrapper'}>
+                    <InputCustom label={'E-mail address'} value={email} setValue={setEmail}/>
+                    <InputCustom label={'Password'} value={password} setValue={setPassword}/>
+                </div>
+                <ButtonCustom color={'yellow'} onClick={handleSignIn}>Log in</ButtonCustom>
+                <div className={'Component_SignIn__linkWrapper'}>
+                    <div className={'Component_SignIn__link'} onClick={() => history.push("/sign-up")}>Sign up</div>
+                </div>
             </div>
         </div>
     )

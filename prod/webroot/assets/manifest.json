@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
+  "name": "QuizzApp",
+  "short_name": "QuizzApp",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",

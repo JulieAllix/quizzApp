@@ -7,6 +7,8 @@ import {SignIn} from "./pages/signIn/SignIn";
 import {TabsList} from "./App/TabsList";
 
 import {State} from "@Utils/redux/store";
+// @ts-ignore
+import background from "../assets/images/background_2.jpg";
 import "./App.scss";
 
 
@@ -36,9 +38,9 @@ export function App() {
 	};
 
 	return (
-		<div className={'Component-App'}>
+		<div className={'Component_App'} style={{backgroundImage: `url(${background})`}}>
 			<Switch>
-				<Route path="/register" render={UnAuthRoute(SignUp)} exact={true}/>
+				<Route path="/sign-up" render={UnAuthRoute(SignUp)} exact={true}/>
 				<Route path="/sign-in" render={UnAuthRoute(SignIn)} exact={true}/>
 
 				<Route path="/app-content" render={AuthRoute(TabsList)} exact={true}/>

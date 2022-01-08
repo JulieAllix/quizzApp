@@ -24,14 +24,14 @@
 
   .ant-input-lg {
     padding: 15px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
 }
 .ant-input:focus, .ant-input-focused {
-  border-color: $primary_green!important;
-  box-shadow: 0 0 0 2px rgba(129, 230, 182, 0.5)!important;
+  border-color: $primary!important;
+  box-shadow: 0 0 0 2px rgba(250, 187, 3, 0.5)!important;
 }
 
 .ant-input:hover {
-  border-color: $primary_green!important;
+  border-color: $primary!important;
 }

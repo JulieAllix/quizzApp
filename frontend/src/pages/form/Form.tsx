@@ -1,6 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
 import {v4} from "uuid";
+import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
@@ -8,7 +9,7 @@ import {ModalCustom} from "../../components/ModalCustom";
 
 import {createSpanishData} from "@Utils/firebaseConfig";
 import "./Form.scss";
-import {AppHeader} from "../../components/AppHeader";
+
 
 interface Props {
 
@@ -43,17 +44,18 @@ export const Form = (props: Props) => {
     };
 
     return (
-        <div className={'Component-Form'}>
-            <AppHeader />
-            <div className={'Component-Form__contentWrapper'}>
-                <div className={'Component-Form__instruction'}>Please enter the values of your new quizz card :</div>
+        <motion.div
+            className={'Component_Form'}
+        >
+            <div className={'Component_Form__contentWrapper'}>
+                <div className={'Component_Form__instruction'}>New quizz card</div>
                 <InputCustom label={'French word'} value={frenchValue} setValue={setFrenchValue}/>
                 <InputCustom label={'Spanish translation'} value={spanishValue} setValue={setSpanishValue}/>
-                <ButtonCustom color={'green'} onClick={handleSend}>Save</ButtonCustom>
+                <ButtonCustom color={'yellow'} onClick={handleSend}>Save</ButtonCustom>
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                     {modalContent.body}
                 </ModalCustom>
             </div>
-        </div>
+        </motion.div>
     );
 };

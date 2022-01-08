@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
+import { motion } from "framer-motion";
 
-import {AppHeader} from "../../components/AppHeader";
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
@@ -61,9 +61,11 @@ export const Quizz = (props: Props) => {
     };
 
     return (
-        <div className={'Component_Quizz'}>
-            <AppHeader />
+        <motion.div
+            className={'Component_Quizz'}
+        >
             <div className={'Component_Quizz__contentWrapper'}>
+                <div className={'Component_Quizz__instruction'}>Quizz</div>
                 {cardsData.length > 0 &&
                 <div className={'Component_Quizz__card'}>
 
@@ -77,15 +79,15 @@ export const Quizz = (props: Props) => {
                 {cardsData.length === 0 ?
                     <div className={'Component_Quizz__startingForm'}>
                         <InputCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-                        <ButtonCustom color={'green'} onClick={handleStart}>Start</ButtonCustom>
+                        <ButtonCustom color={'yellow'} onClick={handleStart}>Start</ButtonCustom>
                     </div>
                     :
                     <div className={'Component_Quizz__buttonsWrapper'}>
                         <div className={'Component_Quizz__buttonWrapper'}>
-                            <ButtonCustom color={'yellow'} onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "See question" : "See answer"}</ButtonCustom>
+                            <ButtonCustom color={'orange'} onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "See question" : "See answer"}</ButtonCustom>
                         </div>
                         <div className={'Component_Quizz__buttonWrapper'}>
-                            <ButtonCustom color={'green'} onClick={handleNext}>Next</ButtonCustom>
+                            <ButtonCustom color={'yellow'} onClick={handleNext}>Next</ButtonCustom>
                         </div>
                     </div>
                 }
@@ -93,6 +95,6 @@ export const Quizz = (props: Props) => {
                     {modalContent.body}
                 </ModalCustom>
             </div>
-        </div>
+        </motion.div>
     );
 };
