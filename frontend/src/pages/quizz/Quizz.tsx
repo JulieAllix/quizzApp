@@ -53,7 +53,7 @@ export const Quizz = (props: Props) => {
                 }
 
             }).catch(error => {
-                console.log('error getAllCards', error);
+                console.log('error getAllCardsOfUser Quizz', error);
             })
         }
     };

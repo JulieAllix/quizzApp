@@ -1,16 +1,17 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
+import {ModalCustom} from "../../components/ModalCustom";
 
 import {setUser} from "@Utils/redux/reducers";
-import {saveUser, signOut} from "@Utils/firebaseConfig";
+import {getAllCardsOfUser, saveUser, signOut} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import "./Settings.scss";
-import {ModalCustom} from "../../components/ModalCustom";
+import {CardData} from "@Models/types/bases/Form";
 
 interface Props {
 
@@ -20,10 +21,19 @@ export const Settings = (props: Props) => {
     const user = useSelector((state: State) => state.user);
     const dispatch = useDispatch();
 
+    const [cardsData, setCardsData] = useState<CardData[]>([]);
     const [nativeLanguage, setNativeLanguage] = useState<string>(user.nativeLanguage);
     const [studiedLanguage, setStudiedLanguage] = useState<string>(user.languageToLearn);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
+
+    useEffect(() => {
+        getAllCardsOfUser(user.userUid).then(allCardsData => {
+            setCardsData(allCardsData)
+        }).catch(error => {
+            console.log('error getAllCardsOfUser Settings', error);
+        })
+    }, []);
 
     const handleSignOut = (): void => {
         dispatch(setUser(null));
@@ -56,6 +66,8 @@ export const Settings = (props: Props) => {
                 <div className={'Component_Settings__instruction'}>Settings</div>
                 <div className={'Component_Settings__label'}>E-mail address</div>
                 <div className={'Component_Settings__text'}>{user.email}</div>
+                <div className={'Component_Settings__label'}>Number of cards created</div>
+                <div className={'Component_Settings__text'}>{cardsData.length}</div>
                 <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
                 <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
                 <ButtonCustom color={'yellow'} onClick={handleSave}>Save</ButtonCustom>
