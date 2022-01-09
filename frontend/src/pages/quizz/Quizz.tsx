@@ -1,13 +1,15 @@
 import * as React from "react";
 import {useState} from "react";
+import {useSelector} from "react-redux";
 import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
-import {Card} from "@Models/types/bases/Form";
-import {getAllCards} from "@Utils/firebaseConfig";
+import {CardData} from "@Models/types/bases/Form";
+import {getAllCardsOfUser} from "@Utils/firebaseConfig";
+import {State} from "@Utils/redux/store";
 import "./Quizz.scss";
 
 interface Props {
@@ -15,7 +17,9 @@ interface Props {
 }
 
 export const Quizz = (props: Props) => {
-    const [cardsData, setCardsData] = useState<Card[]>([]);
+    const user = useSelector((state: State) => state.user);
+
+    const [cardsData, setCardsData] = useState<CardData[]>([]);
     const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<string>("0");
     const [quizzIndex, setQuizzIndex] = useState<number>(0);
     const [showTranslation, setShowTranslation] = useState<boolean>(false);
@@ -27,22 +31,27 @@ export const Quizz = (props: Props) => {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: 'Please define a number of questions higher than 0.'});
         } else {
-            getAllCards().then(response => {
-                console.log('response getAllCards', response);
-                const allData = [...response];
-                const randomlySelectedData = [];
-                const selectedQuestionIndexes: number [] = [];
+            getAllCardsOfUser(user.userUid).then(response => {
+                if (Number(numberOfQuestionsToPick) > response.length) {
+                    setIsModalOpen(true);
+                    setModalContent({title: 'Error', body: `Please choose a number of questions below or equal to ${response.length} (the total number of cards you have created so far).`});
+                } else {
+                    const allData = [...response];
+                    const randomlySelectedData = [];
+                    const selectedQuestionIndexes: number [] = [];
 
-                do {
-                    // get a random question from theme
-                    const questionIndex = Math.floor(allData.length * Math.random())
-                    if (!selectedQuestionIndexes.includes(questionIndex)) {
-                        randomlySelectedData.push(allData[questionIndex]);
-                        selectedQuestionIndexes.push(questionIndex);
-                    }
-                } while (randomlySelectedData.length < parseInt(numberOfQuestionsToPick));
+                    do {
+                        // get a random question from theme
+                        const questionIndex = Math.floor(allData.length * Math.random())
+                        if (!selectedQuestionIndexes.includes(questionIndex)) {
+                            randomlySelectedData.push(allData[questionIndex]);
+                            selectedQuestionIndexes.push(questionIndex);
+                        }
+                    } while (randomlySelectedData.length < parseInt(numberOfQuestionsToPick));
 
-                setCardsData(randomlySelectedData);
+                    setCardsData(randomlySelectedData);
+                }
+
             }).catch(error => {
                 console.log('error getAllCards', error);
             })
@@ -70,8 +79,8 @@ export const Quizz = (props: Props) => {
                 <div className={'Component_Quizz__card'}>
 
                     <div className={showTranslation ? 'Component_Quizz__cardContent Component_Quizz__spanish' : 'Component_Quizz__cardContent'}>
-                        {!showTranslation && cardsData[quizzIndex].frenchValue}
-                        {showTranslation && cardsData[quizzIndex].spanishValue}
+                        {!showTranslation && cardsData[quizzIndex].nativeLanguageValue}
+                        {showTranslation && cardsData[quizzIndex].languageToLearnValue}
                     </div>
 
                 </div>

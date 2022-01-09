@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import {Card, CardsDataBase} from "@Models/types/bases/Form";
+import {CardData} from "@Models/types/bases/Form";
 import {User} from "@Models/types/bases/User";
 
 const firebaseConfig = {
@@ -19,7 +19,6 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 const db = firebase.firestore();
 
-const spanishRef = db.collection('espagnol');
 const usersRef = db.collection('users');
 const studyCardsRef = db.collection('studyCards');
 
@@ -53,7 +52,6 @@ export const getUserFirebaseData = async (userUid: string): Promise<User> => {
             email: firebaseUser.email,
             nativeLanguage: firebaseUser.nativeLanguage,
             languageToLearn: firebaseUser.languageToLearn,
-            studyCardsDataBaseUid: firebaseUser.studyCardsDataBaseUid
         }
     } else {
         throw new Error();
@@ -63,33 +61,29 @@ export const getUserFirebaseData = async (userUid: string): Promise<User> => {
 
 // FORM
 
-export const createSpanishData = async (itemUid: string, data: any) => {
-
-    return spanishRef.doc(itemUid).set({
-        uid: itemUid,
-        frenchValue: data.frenchValue,
-        spanishValue: data.spanishValue
+export const createCard = async (data: CardData): Promise<void> => {
+    return studyCardsRef.doc(data.cardUid).set({
+        ...data
     });
 };
 
-export const saveDataBase  = async (data: CardsDataBase) => {
+export const saveDataBase  = async (data: CardData) => {
 
-    return studyCardsRef.doc(data.dataBaseUid).set({
+    return studyCardsRef.doc(data.cardUid).set({
         ...data
     });
 };
 
 // QUIZZ
 
-export const getAllCards = async (): Promise<Card[]> => {
-    const cardsData = await spanishRef.get();
-    const cardsDataArray = cardsData.docs.map(document => document.data());
-
-    const _cardsDataArray = cardsDataArray.map(cardData => {
+export const getAllCardsOfUser = async (userUid: string): Promise<CardData[]> => {
+    const cardsDataArray = (await studyCardsRef.where("userUid", "==", userUid).get()).docs.map(document => document.data());
+    const _cardsDataArray = cardsDataArray.map((cardData: CardData) => {
         return {
-            uid: cardData.uid,
-            frenchValue: cardData.frenchValue,
-            spanishValue: cardData.spanishValue
+            userUid: cardData.userUid,
+            cardUid: cardData.cardUid,
+            nativeLanguageValue: cardData.nativeLanguageValue,
+            languageToLearnValue: cardData.languageToLearnValue,
         }
     });
     return _cardsDataArray;

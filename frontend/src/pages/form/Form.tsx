@@ -7,7 +7,7 @@ import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
-import {createSpanishData} from "@Utils/firebaseConfig";
+import {createCard} from "@Utils/firebaseConfig";
 import "./Form.scss";
 import {useSelector} from "react-redux";
 import {State} from "@Utils/redux/store";
@@ -20,25 +20,31 @@ interface Props {
 export const Form = (props: Props) => {
     const user = useSelector((state: State) => state.user);
 
-    const [frenchValue, setFrenchValue] = useState<string>('');
-    const [spanishValue, setSpanishValue] = useState<string>('');
+    const [nativeLanguageValue, setNativeLanguageValue] = useState<string>('');
+    const [languageToLearnValue, setLanguageToLearnValue] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     const handleSend = () => {
-        if (frenchValue === '') {
+        if (nativeLanguageValue === '') {
             setIsModalOpen(true);
-            setModalContent({title: 'Error', body: "Please enter the french word."});
-        } else if (spanishValue === '') {
+            setModalContent({title: 'Error', body: `Please enter the ${user.nativeLanguage} word.`});
+        } else if (languageToLearnValue === '') {
             setIsModalOpen(true);
-            setModalContent({title: 'Error', body: "Please enter the spanish translation."});
+            setModalContent({title: 'Error', body: `Please enter the ${user.languageToLearn} translation.`});
         } else {
-            createSpanishData(v4(), {frenchValue: frenchValue, spanishValue: spanishValue}).then(response => {
+            const cardData = {
+                userUid: user.userUid,
+                cardUid: v4(),
+                nativeLanguageValue: nativeLanguageValue,
+                languageToLearnValue: languageToLearnValue
+            }
+            createCard(cardData).then(response => {
                 console.log('response createSpanishData', response);
                 setIsModalOpen(true);
                 setModalContent({title: 'Success', body: 'Your card has been successfully added to the database !'});
-                setFrenchValue('');
-                setSpanishValue('');
+                setNativeLanguageValue('');
+                setLanguageToLearnValue('');
             }).catch(error => {
                 console.log('error createSpanishData', error);
                 setIsModalOpen(true);
@@ -53,8 +59,8 @@ export const Form = (props: Props) => {
         >
             <div className={'Component_Form__contentWrapper'}>
                 <div className={'Component_Form__instruction'}>New quizz card</div>
-                <InputCustom label={`${user.nativeLanguage} word`} value={frenchValue} setValue={setFrenchValue}/>
-                <InputCustom label={`${user.languageToLearn} translation`} value={spanishValue} setValue={setSpanishValue}/>
+                <InputCustom label={`${user.nativeLanguage} word`} value={nativeLanguageValue} setValue={setNativeLanguageValue}/>
+                <InputCustom label={`${user.languageToLearn} translation`} value={languageToLearnValue} setValue={setLanguageToLearnValue}/>
                 <ButtonCustom color={'yellow'} onClick={handleSend}>Save</ButtonCustom>
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                     {modalContent.body}

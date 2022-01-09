@@ -19,8 +19,8 @@ export const SignIn = (props: Props) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState<string>('allixjulie@gmail.com');
-    const [password, setPassword] = useState<string>('123456');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const handleSignIn = () => {
         loginWithEmailAndPassword(email, password).then(response => {

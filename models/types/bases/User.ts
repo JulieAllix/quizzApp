@@ -3,5 +3,4 @@ export interface User {
 	email: string,
 	nativeLanguage: string,
 	languageToLearn: string;
-	studyCardsDataBaseUid: string;
 }

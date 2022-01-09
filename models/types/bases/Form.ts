@@ -1,16 +1,6 @@
-export interface CardsDataBase {
-    dataBaseUid: string,
-    dataBaseArray: CardData[];
-}
-
 export interface CardData {
+    userUid: string,
     cardUid: string,
     nativeLanguageValue: string,
     languageToLearnValue: string,
-}
-
-export interface Card {
-    uid: string,
-    frenchValue: string;
-    spanishValue: string;
 }
