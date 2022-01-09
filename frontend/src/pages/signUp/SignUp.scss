@@ -9,7 +9,7 @@
 
 
   &__title {
-    font-size: 50px;
+    font-size: 40px;
     font-family: Poppins;
     font-style: normal;
     font-weight: bold;
@@ -20,14 +20,14 @@
 
   &__titleWrapper {
     display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+    //flex-direction: column;
+    margin-top: 12px;
   }
 
   &__contentWrapper {
     width: 100%;
     padding: 16px;
-    height: 62vh;
+    height: 90vh;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px 20px 0 0;
   }

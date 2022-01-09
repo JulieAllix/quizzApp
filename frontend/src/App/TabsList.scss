@@ -18,7 +18,7 @@
     justify-content: space-between;
     align-items: center;
     height: 10vh;
-    //background: rgba(255, 255, 255, 0.9);
+    background-color: $primary;
   }
 
   &__tabItem {
@@ -35,11 +35,11 @@
     line-height: 12px;
     letter-spacing: 0px;
     text-align: center;
-    color: $primary;
+    color: $primary_dark;
 
 
     &__active {
-      color: $primary_dark;
+      color: white;
     }
   }
 

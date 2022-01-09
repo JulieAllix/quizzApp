@@ -1,3 +1,7 @@
 export interface User {
-	uid: string,
+	userUid: string,
+	email: string,
+	nativeLanguage: string,
+	languageToLearn: string;
+	studyCardsDataBaseUid: string;
 }

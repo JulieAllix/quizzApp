@@ -9,6 +9,8 @@ import {ModalCustom} from "../../components/ModalCustom";
 
 import {createSpanishData} from "@Utils/firebaseConfig";
 import "./Form.scss";
+import {useSelector} from "react-redux";
+import {State} from "@Utils/redux/store";
 
 
 interface Props {
@@ -16,6 +18,8 @@ interface Props {
 }
 
 export const Form = (props: Props) => {
+    const user = useSelector((state: State) => state.user);
+
     const [frenchValue, setFrenchValue] = useState<string>('');
     const [spanishValue, setSpanishValue] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -49,8 +53,8 @@ export const Form = (props: Props) => {
         >
             <div className={'Component_Form__contentWrapper'}>
                 <div className={'Component_Form__instruction'}>New quizz card</div>
-                <InputCustom label={'French word'} value={frenchValue} setValue={setFrenchValue}/>
-                <InputCustom label={'Spanish translation'} value={spanishValue} setValue={setSpanishValue}/>
+                <InputCustom label={`${user.nativeLanguage} word`} value={frenchValue} setValue={setFrenchValue}/>
+                <InputCustom label={`${user.languageToLearn} translation`} value={spanishValue} setValue={setSpanishValue}/>
                 <ButtonCustom color={'yellow'} onClick={handleSend}>Save</ButtonCustom>
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                     {modalContent.body}

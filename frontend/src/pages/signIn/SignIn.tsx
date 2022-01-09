@@ -6,9 +6,10 @@ import {useHistory} from "react-router";
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 
-import {loginWithEmailAndPassword} from "@Utils/firebaseConfig";
+import {getUserFirebaseData, loginWithEmailAndPassword} from "@Utils/firebaseConfig";
 import {setUser} from "@Utils/redux/reducers";
 import "./SignIn.scss";
+import {User} from "@Models/types/bases/User";
 
 interface Props {
 
@@ -25,18 +26,29 @@ export const SignIn = (props: Props) => {
         loginWithEmailAndPassword(email, password).then(response => {
             console.log('response loginWithEmailAndPassword', response);
             if (response.user !== null) {
-                dispatch(setUser(response.user));
+                getUserdata(response);
             }
         }).catch(error => {
             console.log('error loginWithEmailAndPassword', error);
         });
     };
 
+    const getUserdata = (response: any): void => {
+        getUserFirebaseData(response.user!.uid).then((__response: User) => {
+            if (__response !== undefined) {
+                dispatch(setUser(__response));
+            } else {
+                // TODO : feedback d'erreur: Ce compte n'existe pas.
+            };
+        }).catch(error => {
+            console.error('error getUserFirebaseData', error);
+        });
+    };
+
     return (
         <div className={'Component_SignIn'}>
             <div className={'Component_SignIn__titleWrapper'}>
-                <div className={'Component_SignIn__title'}>Quizz</div>
-                <div className={'Component_SignIn__title'}>App</div>
+                <div className={'Component_SignIn__title'}>Quizz App</div>
             </div>
             <div className={'Component_SignIn__contentWrapper'}>
                 <div className={'Component_SignIn__subtitle'}>

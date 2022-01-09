@@ -1,7 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import {Card} from "@Models/types/bases/Form";
+import {Card, CardsDataBase} from "@Models/types/bases/Form";
+import {User} from "@Models/types/bases/User";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCpCJHA29oT95x77kPiGklBosw-5Ryneu4",
@@ -19,6 +20,8 @@ export const auth = firebase.auth();
 const db = firebase.firestore();
 
 const spanishRef = db.collection('espagnol');
+const usersRef = db.collection('users');
+const studyCardsRef = db.collection('studyCards');
 
 // AUTH
 
@@ -34,6 +37,29 @@ export const signOut = (): Promise<void> => {
     return auth.signOut();
 }
 
+export const saveUser = (userData: User) => {
+    return usersRef.doc(userData.userUid).set({
+        ...userData
+    });
+};
+
+export const getUserFirebaseData = async (userUid: string): Promise<User> => {
+    const userData = await usersRef.doc(userUid).get();
+
+    const firebaseUser = await userData.data();
+    if (firebaseUser !== undefined) {
+        return {
+            userUid: firebaseUser.userUid,
+            email: firebaseUser.email,
+            nativeLanguage: firebaseUser.nativeLanguage,
+            languageToLearn: firebaseUser.languageToLearn,
+            studyCardsDataBaseUid: firebaseUser.studyCardsDataBaseUid
+        }
+    } else {
+        throw new Error();
+    }
+};
+
 
 // FORM
 
@@ -43,6 +69,13 @@ export const createSpanishData = async (itemUid: string, data: any) => {
         uid: itemUid,
         frenchValue: data.frenchValue,
         spanishValue: data.spanishValue
+    });
+};
+
+export const saveDataBase  = async (data: CardsDataBase) => {
+
+    return studyCardsRef.doc(data.dataBaseUid).set({
+        ...data
     });
 };
 
