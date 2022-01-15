@@ -51,7 +51,8 @@ export const getUserFirebaseData = async (userUid: string): Promise<User> => {
             email: firebaseUser.email,
             nativeLanguage: firebaseUser.nativeLanguage,
             languageToLearn: firebaseUser.languageToLearn,
-            trainingCardsList: firebaseUser.trainingCardsList
+            trainingCardsList: firebaseUser.trainingCardsList,
+            numberOfCards: firebaseUser.numberOfCards
         }
     } else {
         throw new Error();

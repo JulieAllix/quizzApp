@@ -1,5 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {v4} from "uuid";
 import { motion } from "framer-motion";
 
@@ -7,17 +8,17 @@ import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
-import {createCard} from "@Utils/firebaseConfig";
-import "./Form.scss";
-import {useSelector} from "react-redux";
+import {createCard, getUserFirebaseData, saveUser} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
-
+import {setUser} from "@Utils/redux/reducers";
+import "./Form.scss";
 
 interface Props {
 
 }
 
 export const Form = (props: Props) => {
+    const dispatch = useDispatch();
     const user = useSelector((state: State) => state.user);
 
     const [nativeLanguageValue, setNativeLanguageValue] = useState<string>('');
@@ -40,11 +41,19 @@ export const Form = (props: Props) => {
                 languageToLearnValue: languageToLearnValue
             }
             createCard(cardData).then(response => {
-                console.log('response createSpanishData', response);
                 setIsModalOpen(true);
                 setModalContent({title: 'Success', body: 'Your card has been successfully added to the database !'});
                 setNativeLanguageValue('');
                 setLanguageToLearnValue('');
+                const updatedUser = {
+                    ...user,
+                    numberOfCards: user.numberOfCards + 1
+                };
+                saveUser(updatedUser).then(() => {
+                    getUserFirebaseData(user.userUid).then(userData => {
+                        dispatch(setUser(userData));
+                    }).catch(error => console.error("error getUserFirebaseData Form", error))
+                }).catch(error => console.error("error saveUser Form", error))
             }).catch(error => {
                 console.log('error createSpanishData', error);
                 setIsModalOpen(true);

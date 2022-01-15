@@ -1,0 +1,32 @@
+@import "src/assets/css/variables";
+
+.Component_Slideshow {
+  position: relative;
+  height: 50vh;
+  display: flex;
+
+  &__cardContent {
+    font-size: 20px;
+    text-align: center;
+    font-family: Work Sans;
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  &__buttonsWrapper {
+    align-self: flex-end;
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  &__buttonWrapper {
+    margin: 0 10px;
+    width: 150px;
+  }
+
+  &__answer {
+    color: $primary;
+  }
+
+}

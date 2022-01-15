@@ -30,7 +30,8 @@ export const SignUp = (props: Props) => {
                 email: email,
                 nativeLanguage: nativeLanguage,
                 languageToLearn: studiedLanguage,
-                trainingCardsList: []
+                trainingCardsList: [],
+                numberOfCards: 0
             }).then(() => {
                 setIsModalOpen(true);
                 setModalContent({title: 'Success', body: "Your account successfully got created."});
