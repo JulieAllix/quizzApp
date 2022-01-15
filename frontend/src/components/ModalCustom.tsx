@@ -21,7 +21,7 @@ export const ModalCustom: React.FC<Props> = (props) => {
                 onOk={() => props.setVisible(false)}
                 onCancel={() => props.setVisible(false)}
                 footer={[
-                    <ButtonCustom color={'yellow'} onClick={() => props.setVisible(false)}>Ok</ButtonCustom>
+                    <ButtonCustom onClick={() => props.setVisible(false)}>Ok</ButtonCustom>
                 ]}
             >
                 <div className={'Component-ModalCustom__modalContent'}>

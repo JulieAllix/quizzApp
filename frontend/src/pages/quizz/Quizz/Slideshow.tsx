@@ -88,21 +88,19 @@ export const Slideshow = (props: Props) => {
             {props.quizzMode === "random" ?
                 <div className={'Component_Slideshow__buttonsWrapper'}>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom color={'orange'}
-                                      onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
+                        <ButtonCustom onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
                     </div>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom color={'yellow'} onClick={() => props.handleFailed(page)}>Failed</ButtonCustom>
+                        <ButtonCustom onClick={() => props.handleFailed(page)}>Failed</ButtonCustom>
                     </div>
                 </div>
                 : props.quizzMode === "training" &&
                 <div className={'Component_Slideshow__buttonsWrapper'}>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom color={'orange'}
-                                      onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
+                        <ButtonCustom onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
                     </div>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom color={'yellow'} onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
+                        <ButtonCustom onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
                     </div>
                 </div>
             }

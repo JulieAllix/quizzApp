@@ -3,6 +3,8 @@
 .Component_TabsList {
   position: relative;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   &__tabContainer {
     bottom: 0;
@@ -18,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
     height: 10vh;
-    background-color: $primary;
+    background-color: white;
   }
 
   &__tabItem {
@@ -35,29 +37,11 @@
     line-height: 12px;
     letter-spacing: 0px;
     text-align: center;
-    color: $primary_dark;
+    color: $grey_dark;
 
 
     &__active {
-      color: white;
+      color: $primary;
     }
-  }
-
-  &__lineWrapper {
-    display: flex;
-  }
-
-  &__line {
-    border-top: 5px solid $primary_dark;
-    width: 33%;
-    position: absolute;
-    top: -5px;
-  }
-
-  &__backgroundLine {
-    border-top: 5px solid $primary;
-    width: 100%;
-    display: flex;
-    position: relative;
   }
 }

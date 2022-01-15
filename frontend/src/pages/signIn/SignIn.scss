@@ -7,58 +7,48 @@
   align-items: center;
   justify-content: space-between;
 
+  &__titleWrapper {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__title {
-    font-size: 40px;
+    margin-top: 70px;
+    font-size: 36px;
     font-family: Poppins;
     font-style: normal;
     font-weight: bold;
     color: white;
-    line-height: 50px;
     text-align: center;
-  }
-
-  &__titleWrapper {
-    display: flex;
-    //flex-direction: column;
-    margin-top: 12px;
-  }
-
-  &__contentWrapper {
-    width: 100%;
-    padding: 16px;
-    height: 62vh;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px 20px 0 0;
   }
 
   &__subtitle {
+    font-size: 12px;
+    font-family: Poppins;
+    font-style: normal;
+    color: white;
+    text-align: center;
+  }
+
+  &__welcome {
     font-size: 24px;
     font-family: Poppins;
     font-style: normal;
-    font-weight: bold;
+    color: white;
     text-align: center;
-    margin-bottom: 40px;
+    font-weight: 800;
+  }
+
+  &__contentWrapper {
+    width: 90vw;
+    padding: 16px;
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 24px;
   }
 
   &__inputsWrapper {
     margin-bottom: 40px;
-  }
-
-  &__inputWrapper {
-    margin-bottom: 20px;
-  }
-
-  &__label {
-    font-size: 12px;
-  }
-
-  &__buttonWrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
   }
 
   &__linkWrapper {
@@ -68,19 +58,9 @@
   }
 
   &__link {
-    font-family: "Work Sans";
-    font-size: 18px;
+    font-family: "Poppins";
+    font-size: 14px;
+    font-weight: 600;
     color: $primary;
-    font-weight: bold;
-  }
-
-  .ant-input {
-    font-size: 14px;
-  }
-
-  .ant-btn-round.ant-btn-lg  {
-    font-size: 14px;
-    height: 100px;
-    padding: 10px 20px;
   }
 }

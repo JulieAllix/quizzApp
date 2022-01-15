@@ -1,38 +1,14 @@
 //// COLORS ////
 
-//GREEN PRIMARY//
-$primary: #fabb03;
-$green_light: #fad363;
-$primary_dark: #f89c0a;
+//PRIMARY//
+$primary: #f53557;
+$primary_light: #FA6781;
+$primary_lighter: #FF7A92;
 
-//BLUE PRIMARY//
-$blue_dark: #0A548B;
-$blue_regular: #41A7F2;
-$blue_light: #DDF1FF;
-$blue_sky: #ADD9FA;
-
-//WHITE//
-$white_regular: #FFFFFF;
-$black_regular: #0E1B24;
-$grey_regular : #C7C7C7;
-$grey_dark : #757575;
-$grey_light : #E1E1E1;
-$black_disabled: #fcf9f9;
-
-//OTHER//
-$red_regular: #FF6565;
-$yellow_regular: #FFDAA3;
-$yellow_darker: #FFB951;
-
-//CHAT ELEMENTS//
-$my_color: #8E8E8E;
-$interlocutor_color: #41A7F2;
-
-//UI ELEMENTS//
-$green_gradient: linear-gradient(130.76deg, #FABB03 17.01%, #f89c0a 84.88%);
-$blue_gradient: linear-gradient(130.76deg, #7DC8FF 17.01%, #41A7F2 84.88%);
-$yellow_gradient: linear-gradient(130.76deg, #FFDAA3 17.01%, #FFB951 84.88%);
-$red_gradient: linear-gradient(130.76deg, #FF6565 17.01%, #C55D5D 84.88%);
+//GREYS//
+$grey_bg : #EAEFF0;
+$grey_dark : #C4C4C4;
+$grey_light : #FAFAFA;
 
 //// FONTS ////
 @import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&family=Open+Sans:wght@400;500;600;700&family=Roboto&family=Work+Sans:wght@400;500;600;700&display=swap);

@@ -49,16 +49,16 @@ export const SignIn = (props: Props) => {
         <div className={'Component_SignIn'}>
             <div className={'Component_SignIn__titleWrapper'}>
                 <div className={'Component_SignIn__title'}>Quizz App</div>
+                <div className={'Component_SignIn__subtitle'}>The app that helps you studying your vocabulary</div>
             </div>
+            <div className={'Component_SignIn__welcome'}>Welcome back !</div>
+
             <div className={'Component_SignIn__contentWrapper'}>
-                <div className={'Component_SignIn__subtitle'}>
-                    Sign in
-                </div>
                 <div className={'Component_SignIn__inputsWrapper'}>
                     <InputCustom label={'E-mail address'} value={email} setValue={setEmail}/>
                     <InputCustom label={'Password'} value={password} setValue={setPassword}/>
                 </div>
-                <ButtonCustom color={'yellow'} onClick={handleSignIn}>Log in</ButtonCustom>
+                <ButtonCustom onClick={handleSignIn}>Sign in</ButtonCustom>
                 <div className={'Component_SignIn__linkWrapper'}>
                     <div className={'Component_SignIn__link'} onClick={() => history.push("/sign-up")}>Sign up</div>
                 </div>

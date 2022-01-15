@@ -59,23 +59,24 @@ export const SignUp = (props: Props) => {
             <div className={'Component_SignUp__title'}>Quizz App</div>
         </div>
         <div className={'Component_SignUp__contentWrapper'}>
-            <div className={'Component_SignUp__subtitle'}>
-                Sign up
-            </div>
             <div className={'Component_SignUp__inputsWrapper'}>
                 <InputCustom label={'E-mail address'} value={email} setValue={setEmail}/>
                 <InputCustom label={'Password'} value={password} setValue={setPassword}/>
                 <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
                 <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
             </div>
-            <ButtonCustom color={'yellow'} onClick={handleSignUp}>Register</ButtonCustom>
+            <ButtonCustom onClick={handleSignUp}>Sign up</ButtonCustom>
             <div className={'Component_SignUp__linkWrapper'}>
                 <div className={'Component_SignUp__link'} onClick={() => history.push("/sign-in")}>Sign in</div>
             </div>
+        </div>
+
+
+
             <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                 {modalContent.body}
             </ModalCustom>
-        </div>
+
     </div>
     )
 };

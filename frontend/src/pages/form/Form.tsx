@@ -68,9 +68,19 @@ export const Form = (props: Props) => {
         >
             <div className={'Component_Form__contentWrapper'}>
                 <div className={'Component_Form__instruction'}>New quizz card</div>
-                <InputCustom label={`${user.nativeLanguage} word`} value={nativeLanguageValue} setValue={setNativeLanguageValue}/>
-                <InputCustom label={`${user.languageToLearn} translation`} value={languageToLearnValue} setValue={setLanguageToLearnValue}/>
-                <ButtonCustom color={'yellow'} onClick={handleSend}>Save</ButtonCustom>
+                <div className={'Component_Form__cardsWrapper'}>
+                    <div className={'Component_Form__card'}>
+                        <div className={'Component_Form__cardTitle'}>{user.nativeLanguage} word</div>
+                        <div className={'Component_Form__subtitle'}>Add a word in your mother tongue.</div>
+                        <InputCustom value={nativeLanguageValue} setValue={setNativeLanguageValue}/>
+                    </div>
+                    <div className={'Component_Form__card'}>
+                        <div className={'Component_Form__cardTitle'}>{user.languageToLearn} translation</div>
+                        <div className={'Component_Form__subtitle'}>Write the translation of the word you added in the language you are learning.</div>
+                        <InputCustom value={languageToLearnValue} setValue={setLanguageToLearnValue}/>
+                    </div>
+                </div>
+                <ButtonCustom onClick={handleSend}>Save</ButtonCustom>
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                     {modalContent.body}
                 </ModalCustom>

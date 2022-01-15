@@ -56,14 +56,22 @@ export const Settings = (props: Props) => {
         >
             <div className={'Component_Settings__contentWrapper'}>
                 <div className={'Component_Settings__instruction'}>Settings</div>
-                <div className={'Component_Settings__label'}>E-mail address</div>
-                <div className={'Component_Settings__text'}>{user.email}</div>
-                <div className={'Component_Settings__label'}>Number of cards created</div>
-                <div className={'Component_Settings__text'}>{user.numberOfCards}</div>
-                <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
-                <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
-                <ButtonCustom color={'yellow'} onClick={handleSave}>Save</ButtonCustom>
-                <ButtonCustom color={'orange'} onClick={handleSignOut}>Sign out</ButtonCustom>
+                <div className={'Component_Settings__cardsWrapper'}>
+                    <div className={'Component_Settings__card'}>
+                        <div className={'Component_Settings__cardTitle'}>Personal data</div>
+                        <div className={'Component_Settings__subtitle'}>{user.email}</div>
+                        <div className={'Component_Settings__subtitle'}><span className={'Component_Settings__accent'}>{user.numberOfCards}</span> cards created</div>
+                    </div>
+                    <div className={'Component_Settings__lastCard'}>
+                        <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
+                        <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
+                    </div>
+                </div>
+
+
+
+                <ButtonCustom onClick={handleSave}>Save</ButtonCustom>
+                <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
             </div>
             <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                 {modalContent.body}

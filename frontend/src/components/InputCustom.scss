@@ -3,33 +3,34 @@
 .Component_InputCustom {
 
   &__inputWrapper {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   &__label {
-    font-size: 12px;
-    font-family: Work Sans;
+    font-size: 18px;
+    font-family: Poppins;
     font-style: normal;
-    font-weight: 500;
-    text-transform: uppercase;
+    font-weight: 600;
   }
 
   .ant-input {
     font-size: 14px;
-    font-family: Work Sans;
+    font-family: Poppins;
     font-style: normal;
     font-weight: normal;
-
+    color: $grey_dark;
   }
 
   .ant-input-lg {
     padding: 15px 20px;
-    border-radius: 15px;
+    border-radius: 0px;
+    border: transparent;
+    background-color: $grey_light;
   }
 }
 .ant-input:focus, .ant-input-focused {
   border-color: $primary!important;
-  box-shadow: 0 0 0 2px rgba(250, 187, 3, 0.5)!important;
+  box-shadow: 0 0 0 2px rgb(245, 53, 87) !important;
 }
 
 .ant-input:hover {

@@ -8,6 +8,7 @@ import {QuizzTab} from "./TabsList/QuizzTab";
 import {SettingsTab} from "./TabsList/SettingsTab";
 
 import "./TabsList.scss";
+import {PictogramCustom} from "../components/PictogramCustom";
 
 
 interface Props {
@@ -37,69 +38,45 @@ export const TabsList: React.FC<Props> = (props) => {
 
     return (
         <div className={'Component_TabsList'}>
-            <div className={'Component_TabsList__tabContainer'} ref={ref}>
 
-                  <div className={'Component_TabsList__backgroundLine'}>
-                    {value === 0 ?
+                <div className={'Component_TabsList__tabContainer'} ref={ref}>
+                    <div className={'Component_TabsList__tabList'} ref={tabListRef}>
                         <motion.div
-                            className={'Component_TabsList__line'}
-                            initial={{ x: '100%' }}
-                            animate={{x: 0}}
-                            transition={{duration: 0.3}}
-                        />
-                        : value === 1 ?
+                            className={value === 0 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                            whileHover={{ backgroundColor: "#f1f3f5" }}
+                            transition={{ duration: 0.1 }}
+                            whileTap={{ backgroundColor: "#e9ecef" }}
+                            ref={el => childRefs.current.set(0, el)}
+                            onClick={() => setValue(0)}
+                        >
+                            <div>Quizz</div>
+                        </motion.div>
                         <motion.div
-                            className={'Component_TabsList__line'}
-                            initial={{ x: 0 }}
-                            animate={{x: '100%'}}
-                            transition={{duration: 0.3}}
-                        />
-                            :
-                                <motion.div
-                                    className={'Component_TabsList__line'}
-                                    initial={{ x: 0 }}
-                                    animate={{x: '200%'}}
-                                    transition={{duration: 0.3}}
-                                />
-                    }
+                            className={value === 1 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                            whileHover={{ backgroundColor: "#f1f3f5" }}
+                            transition={{ duration: 0.1 }}
+                            whileTap={{ backgroundColor: "#e9ecef" }}
+                            ref={el => childRefs.current.set(1, el)}
+                            onClick={() => setValue(1)}
+                        >
+                            <PictogramCustom name={value === 1 ? 'AddPink' : 'AddGrey'} width={'50px'}/>
+                        </motion.div>
+                        <motion.div
+                            className={value === 2 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                            whileHover={{ backgroundColor: "#f1f3f5" }}
+                            transition={{ duration: 0.1 }}
+                            whileTap={{ backgroundColor: "#e9ecef" }}
+                            ref={el => childRefs.current.set(2, el)}
+                            onClick={() => setValue(2)}
+                        >
+                            <div>Settings</div>
+                        </motion.div>
+                    </div>
                 </div>
 
-                <div className={'Component_TabsList__tabList'} ref={tabListRef}>
-                    <motion.div
-                        className={value === 0 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
-                        whileHover={{ backgroundColor: "#f1f3f5" }}
-                        transition={{ duration: 0.1 }}
-                        whileTap={{ backgroundColor: "#e9ecef" }}
-                        ref={el => childRefs.current.set(0, el)}
-                        onClick={() => setValue(0)}
-                    >
-                        <div>Form</div>
-                    </motion.div>
-                    <motion.div
-                        className={value === 1 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
-                        whileHover={{ backgroundColor: "#f1f3f5" }}
-                        transition={{ duration: 0.1 }}
-                        whileTap={{ backgroundColor: "#e9ecef" }}
-                        ref={el => childRefs.current.set(1, el)}
-                        onClick={() => setValue(1)}
-                    >
-                        <div>Quizz</div>
-                    </motion.div>
-                    <motion.div
-                        className={value === 2 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
-                        whileHover={{ backgroundColor: "#f1f3f5" }}
-                        transition={{ duration: 0.1 }}
-                        whileTap={{ backgroundColor: "#e9ecef" }}
-                        ref={el => childRefs.current.set(2, el)}
-                        onClick={() => setValue(2)}
-                    >
-                        <div>Settings</div>
-                    </motion.div>
-                </div>
-            </div>
             <TabsPager value={value}>
-                <FormTab />
                 <QuizzTab />
+                <FormTab />
                 <SettingsTab />
             </TabsPager>
         </div>

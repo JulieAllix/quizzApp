@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
+import {Slideshow} from "./Quizz/Slideshow";
 
 import {CardData} from "@Models/types/bases/Form";
 import {
@@ -17,7 +18,6 @@ import {
 import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers";
 import "./Quizz.scss";
-import {Slideshow} from "./Quizz/Slideshow";
 
 interface Props {
 
@@ -28,7 +28,7 @@ export const Quizz = (props: Props) => {
     const dispatch = useDispatch();
 
     const [cardsData, setCardsData] = useState<CardData[]>([]);
-    const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<string>("1");
+    const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<string>("0");
 
     const [quizzMode, setQuizzMode] = useState<"random" | "training" | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -135,12 +135,18 @@ export const Quizz = (props: Props) => {
                     />
                 }
                 {quizzMode === null &&
-                    <div className={'Component_Quizz__startingForm'}>
-                        <div className={'Component_Quizz__subtitle'}>Random quizz</div>
-                        <InputCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-                        <ButtonCustom color={'yellow'} onClick={handleStartRandomQuizz}>Start random quizz</ButtonCustom>
-                        <div className={'Component_Quizz__subtitle'}>Training quizz</div>
-                        <ButtonCustom color={'yellow'} onClick={handleStartTrainingQuizz}>Start training quizz</ButtonCustom>
+                    <div className={'Component_Quizz__cardsWrapper'}>
+                        <div className={'Component_Quizz__card'}>
+                            <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
+                            <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
+                            <InputCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
+                            <ButtonCustom onClick={handleStartRandomQuizz}>Start</ButtonCustom>
+                        </div>
+                        <div className={'Component_Quizz__card'}>
+                            <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
+                            <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
+                            <ButtonCustom onClick={handleStartTrainingQuizz}>Start</ButtonCustom>
+                        </div>
                     </div>
                 }
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
@@ -150,14 +156,3 @@ export const Quizz = (props: Props) => {
         </motion.div>
     );
 };
-{/*
-                                <motion.div
-                    className={'Component_Quizz__card'}
-                >
-                    <div className={showTranslation ? 'Component_Quizz__cardContent Component_Quizz__spanish' : 'Component_Quizz__cardContent'}>
-                        {!showTranslation && cardsData[quizzIndex]?.nativeLanguageValue}
-                        {showTranslation && cardsData[quizzIndex]?.languageToLearnValue}
-                    </div>
-
-                </motion.div>
-                */}

@@ -1,12 +1,19 @@
 @import './assets/css/variables';
+
 body {
   height: 100vh!important;
   overflow: hidden!important;
-  background-color: black!important;
+  background-color: $primary!important;
 }
 .Component_App {
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 1000px 700px;
+  background-size: 110% 100%;
+
+  &__logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 }
