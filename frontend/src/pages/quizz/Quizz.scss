@@ -12,6 +12,7 @@
     flex-direction: column;
     //justify-content: center;
     height: 75vh;
+    overflow-x: hidden;
   }
 
   &__instruction {
@@ -19,13 +20,21 @@
     font-family: Poppins;
     font-style: normal;
     font-weight: bold;
-    margin-bottom: 50px;
+    margin-bottom: 14px;
     text-align: center;
   }
 
   &__startingForm {
     width: 100%;
     //padding: 20px;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    margin: 24px 0;
   }
 
   &__card {
@@ -54,11 +63,14 @@
 
   &__buttonsWrapper {
     display: flex;
+    flex-direction: column;
     width: calc(100vw - 30px);
     justify-content: center;
+    align-items: center;
   }
 
   &__buttonWrapper {
     margin: 0 10px;
+    width: 150px;
   }
 }

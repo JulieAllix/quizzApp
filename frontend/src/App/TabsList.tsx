@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 import {FormTab} from "./TabsList/FormTab";
 import {TabsPager} from "./TabsList/TabsPager";
 import {QuizzTab} from "./TabsList/QuizzTab";
+import {SettingsTab} from "./TabsList/SettingsTab";
 
 import "./TabsList.scss";
-import {SettingsTab} from "./TabsList/SettingsTab";
+
 
 interface Props {
 

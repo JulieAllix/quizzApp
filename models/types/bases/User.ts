@@ -3,4 +3,5 @@ export interface User {
 	email: string,
 	nativeLanguage: string,
 	languageToLearn: string;
+	trainingCardsList: number[];
 }

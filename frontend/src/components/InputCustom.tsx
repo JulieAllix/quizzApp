@@ -12,9 +12,9 @@ interface Props {
 export const InputCustom = (props: Props) => {
 
     return (
-        <div className={'Component-InputCustom'}>
-            <div className={'Component-InputCustom__inputWrapper'}>
-                <div className={'Component-InputCustom__label'}>{props.label}</div>
+        <div className={'Component_InputCustom'}>
+            <div className={'Component_InputCustom__inputWrapper'}>
+                <div className={'Component_InputCustom__label'}>{props.label}</div>
                 <Input
                     value={props.value}
                     onChange={(e) => props.setValue(e.target.value)}

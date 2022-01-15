@@ -8,10 +8,10 @@ import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
 import {setUser} from "@Utils/redux/reducers";
-import {getAllCardsOfUser, saveUser, signOut} from "@Utils/firebaseConfig";
+import {saveUser, signOut} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
-import "./Settings.scss";
 import {CardData} from "@Models/types/bases/Form";
+import "./Settings.scss";
 
 interface Props {
 
@@ -28,11 +28,7 @@ export const Settings = (props: Props) => {
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     useEffect(() => {
-        getAllCardsOfUser(user.userUid).then(allCardsData => {
-            setCardsData(allCardsData)
-        }).catch(error => {
-            console.log('error getAllCardsOfUser Settings', error);
-        })
+        setCardsData([]);
     }, []);
 
     const handleSignOut = (): void => {
@@ -45,7 +41,8 @@ export const Settings = (props: Props) => {
             userUid: user.userUid,
             email: user.email,
             nativeLanguage: nativeLanguage,
-            languageToLearn: studiedLanguage
+            languageToLearn: studiedLanguage,
+            trainingCardsList: user.trainingCardsList
         }
         saveUser(updatedUser).then(() => {
             dispatch(setUser(updatedUser));
