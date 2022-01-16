@@ -23,6 +23,7 @@ export const Form = (props: Props) => {
 
     const [nativeLanguageValue, setNativeLanguageValue] = useState<string>('');
     const [languageToLearnValue, setLanguageToLearnValue] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
@@ -34,6 +35,7 @@ export const Form = (props: Props) => {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: `Please enter the ${user.languageToLearn} translation.`});
         } else {
+            setIsLoading(true);
             const cardData = {
                 userUid: user.userUid,
                 cardUid: v4(),
@@ -52,12 +54,20 @@ export const Form = (props: Props) => {
                 saveUser(updatedUser).then(() => {
                     getUserFirebaseData(user.userUid).then(userData => {
                         dispatch(setUser(userData));
-                    }).catch(error => console.error("error getUserFirebaseData Form", error))
-                }).catch(error => console.error("error saveUser Form", error))
+                        setIsLoading(false);
+                    }).catch(error => {
+                        console.error("error getUserFirebaseData Form", error);
+                        setIsLoading(false);
+                    })
+                }).catch(error => {
+                    console.error("error saveUser Form", error);
+                    setIsLoading(false);
+                })
             }).catch(error => {
                 console.log('error createSpanishData', error);
                 setIsModalOpen(true);
                 setModalContent({title: 'Error', body: "Your card couldn't get added to the database."});
+                setIsLoading(false);
             });
         }
     };
@@ -80,7 +90,7 @@ export const Form = (props: Props) => {
                         <InputCustom value={languageToLearnValue} setValue={setLanguageToLearnValue}/>
                     </div>
                 </div>
-                <ButtonCustom onClick={handleSend}>Save</ButtonCustom>
+                <ButtonCustom isLoading={isLoading} onClick={handleSend}>Save</ButtonCustom>
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                     {modalContent.body}
                 </ModalCustom>

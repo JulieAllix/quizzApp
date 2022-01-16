@@ -31,6 +31,7 @@ export const Quizz = (props: Props) => {
     const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<string>("0");
 
     const [quizzMode, setQuizzMode] = useState<"random" | "training" | null>(null);
+    const [isLoading, setIsLoading] = useState<"random" | "training" | "trainingsList" | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
@@ -39,6 +40,7 @@ export const Quizz = (props: Props) => {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: 'Please define a number of questions higher than 0.'});
         } else {
+            setIsLoading("random");
             getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick)).then(response => {
                 if (Number(numberOfQuestionsToPick) > response.length) {
                     setIsModalOpen(true);
@@ -57,26 +59,32 @@ export const Quizz = (props: Props) => {
                             selectedQuestionIndexes.push(questionIndex);
                         }
                     } while (randomlySelectedData.length < parseInt(numberOfQuestionsToPick));
-
+                    setNumberOfQuestionsToPick("0");
                     setCardsData(randomlySelectedData);
+                    setIsLoading(null);
                 }
-
             }).catch(error => {
                 console.log('error getAllCardsOfUser Quizz', error);
+                setIsLoading(null);
             })
         }
     };
 
     const handleStartTrainingQuizz = (): void => {
+        setIsLoading("training");
         getAllTrainingCardsOfUser(user.trainingCardsList).then(allTrainingCardsOfUser => {
                 setQuizzMode("training");
                 setCardsData(allTrainingCardsOfUser);
+                setNumberOfQuestionsToPick("0");
+                setIsLoading(null);
             }).catch(error => {
                 console.log('error getAllCardsOfUser Quizz', error);
+                setIsLoading(null);
             })
     };
 
     const handleSuccess = (index: number): void => {
+        setIsLoading("trainingsList");
         const trainingCardsList = [...user.trainingCardsList];
         const updatedTrainingCardsList = trainingCardsList.filter(card => card !== cardsData[index].cardUid);
         const userData = {
@@ -88,15 +96,18 @@ export const Quizz = (props: Props) => {
                 dispatch(setUser(_user));
                 setIsModalOpen(true);
                 setModalContent({title: 'Succes', body: "This card got removed from your training cards list !"});
+                setIsLoading(null);
             })
         }).catch(error => {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: "This card couldn't get removed from your training cards list."});
-            console.log("error saveUser : ", error)
+            console.log("error saveUser : ", error);
+            setIsLoading(null);
         });
     };
 
     const handleFailed = (index: number): void => {
+        setIsLoading("trainingsList");
         const updatedTrainingCardsList = [...user.trainingCardsList];
         updatedTrainingCardsList.push(cardsData[index].cardUid);
         const userData = {
@@ -108,11 +119,13 @@ export const Quizz = (props: Props) => {
                 dispatch(setUser(_user));
                 setIsModalOpen(true);
                 setModalContent({title: 'Succes', body: "This card got added to your training cards list !"});
+                setIsLoading(null);
             })
         }).catch(error => {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: "This card couldn't be added to your training cards list."});
             console.log("error saveUser : ", error)
+            setIsLoading(null);
         });
     };
 
@@ -132,6 +145,7 @@ export const Quizz = (props: Props) => {
                         setQuizzMode={setQuizzMode}
                         handleSuccess={handleSuccess}
                         handleFailed={handleFailed}
+                        isLoading={isLoading}
                     />
                 }
                 {quizzMode === null &&
@@ -140,12 +154,12 @@ export const Quizz = (props: Props) => {
                             <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
                             <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
                             <InputCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-                            <ButtonCustom onClick={handleStartRandomQuizz}>Start</ButtonCustom>
+                            <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
                         </div>
                         <div className={'Component_Quizz__card'}>
                             <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
                             <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
-                            <ButtonCustom onClick={handleStartTrainingQuizz}>Start</ButtonCustom>
+                            <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
                         </div>
                     </div>
                 }

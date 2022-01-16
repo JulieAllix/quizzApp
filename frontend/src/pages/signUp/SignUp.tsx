@@ -22,8 +22,10 @@ export const SignUp = (props: Props) => {
     const [studiedLanguage, setStudiedLanguage] = useState<string>('');
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleSignUp = () => {
+        setIsLoading(true);
         registerWithEmailAndPassword(email, password).then(createdUser => {
             saveUser({
                 userUid: createdUser.user.uid,
@@ -35,14 +37,17 @@ export const SignUp = (props: Props) => {
             }).then(() => {
                 setIsModalOpen(true);
                 setModalContent({title: 'Success', body: "Your account successfully got created."});
+                setIsLoading(false);
             }).catch(error => {
                 console.log('error saveUser', error);
                 setIsModalOpen(true);
                 setModalContent({title: 'Error', body: "Your account couldn't get created."});
+                setIsLoading(false);
             });
         }).catch(error => {
             console.log('error registerWithEmailAndPassword', error);
             setIsModalOpen(true);
+            setIsLoading(false);
             if (error.code === "auth/email-already-in-use") {
                 setModalContent({title: 'Error', body: "An account already exists for this e-mail address."});
             } else if (error.code === "auth/weak-password") {
@@ -65,7 +70,7 @@ export const SignUp = (props: Props) => {
                 <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
                 <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
             </div>
-            <ButtonCustom onClick={handleSignUp}>Sign up</ButtonCustom>
+            <ButtonCustom isLoading={isLoading} onClick={handleSignUp}>Sign up</ButtonCustom>
             <div className={'Component_SignUp__linkWrapper'}>
                 <div className={'Component_SignUp__link'} onClick={() => history.push("/sign-in")}>Sign in</div>
             </div>

@@ -8,7 +8,7 @@ import "./Slideshow.scss";
 
 const variants = {
     enter: direction => ({
-        x: direction > 0 ? -1000 : 1000,
+        x: direction > 0 ? 700 : -700,
         opacity: 0,
     }),
     center: {
@@ -16,7 +16,7 @@ const variants = {
         opacity: 1,
     },
     exit: direction => ({
-        x: direction > 0 ? 1000 : -1000,
+        x: direction > 0 ? -700 : 700,
         opacity: 0,
     }),
 }
@@ -27,6 +27,7 @@ interface Props {
     setQuizzMode: (value: "random" | "training" | null) => void;
     handleSuccess: (value: number) => void;
     handleFailed: (value: number) => void;
+    isLoading: "random" | "training" | "trainingsList" | null;
 }
 
 export const Slideshow = (props: Props) => {
@@ -39,7 +40,8 @@ export const Slideshow = (props: Props) => {
         } else if (page + direction === -1) {
 
         } else {
-            setPage([ page + direction, direction ])
+            setPage([ page + direction, direction ]);
+            setShowTranslation(false);
         }
     };
 
@@ -72,9 +74,9 @@ export const Slideshow = (props: Props) => {
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={1}
                     onDragEnd={ (e, { offset, velocity }) => {
-                        if (offset.x > 100) {
+                        if (offset.x > 150) {
                             paginate(-1)
-                        } else if (offset.x < -100) {
+                        } else if (offset.x < -150) {
                             paginate(1)
                         }
                     }}
@@ -91,7 +93,7 @@ export const Slideshow = (props: Props) => {
                         <ButtonCustom onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
                     </div>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom onClick={() => props.handleFailed(page)}>Failed</ButtonCustom>
+                        <ButtonCustom isLoading={props.isLoading === "trainingsList" ? true : false} onClick={() => props.handleFailed(page)}>Failed</ButtonCustom>
                     </div>
                 </div>
                 : props.quizzMode === "training" &&
@@ -100,7 +102,7 @@ export const Slideshow = (props: Props) => {
                         <ButtonCustom onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
                     </div>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
+                        <ButtonCustom isLoading={props.isLoading === "trainingsList" ? true : false} onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
                     </div>
                 </div>
             }

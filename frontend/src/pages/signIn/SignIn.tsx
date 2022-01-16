@@ -8,8 +8,8 @@ import {InputCustom} from "../../components/InputCustom";
 
 import {getUserFirebaseData, loginWithEmailAndPassword} from "@Utils/firebaseConfig";
 import {setUser} from "@Utils/redux/reducers";
-import "./SignIn.scss";
 import {User} from "@Models/types/bases/User";
+import "./SignIn.scss";
 
 interface Props {
 
@@ -21,8 +21,10 @@ export const SignIn = (props: Props) => {
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleSignIn = () => {
+        setIsLoading(true);
         loginWithEmailAndPassword(email, password).then(response => {
             console.log('response loginWithEmailAndPassword', response);
             if (response.user !== null) {
@@ -30,6 +32,7 @@ export const SignIn = (props: Props) => {
             }
         }).catch(error => {
             console.log('error loginWithEmailAndPassword', error);
+            setIsLoading(false);
         });
     };
 
@@ -37,11 +40,14 @@ export const SignIn = (props: Props) => {
         getUserFirebaseData(response.user!.uid).then((__response: User) => {
             if (__response !== undefined) {
                 dispatch(setUser(__response));
+                setIsLoading(false);
             } else {
                 // TODO : feedback d'erreur: Ce compte n'existe pas.
+                setIsLoading(false);
             };
         }).catch(error => {
             console.error('error getUserFirebaseData', error);
+            setIsLoading(false);
         });
     };
 
@@ -58,7 +64,7 @@ export const SignIn = (props: Props) => {
                     <InputCustom label={'E-mail address'} value={email} setValue={setEmail}/>
                     <InputCustom label={'Password'} value={password} setValue={setPassword}/>
                 </div>
-                <ButtonCustom onClick={handleSignIn}>Sign in</ButtonCustom>
+                <ButtonCustom isLoading={isLoading} onClick={handleSignIn}>Sign in</ButtonCustom>
                 <div className={'Component_SignIn__linkWrapper'}>
                     <div className={'Component_SignIn__link'} onClick={() => history.push("/sign-up")}>Sign up</div>
                 </div>
