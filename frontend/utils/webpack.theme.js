@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+{/*
 const Ant = require("./theme/ant");
 
 const antThemeVariables = {
@@ -12,147 +13,150 @@ const antThemeVariables = {
     "border-color-split": "#cecece",
     "box-shadow-base": "0 2px 8px rgba(0, 0, 0, 0.25)", // major shadow for layers
 };
+*/}
 
-module.exports = Ant.compileThemeVariables(antThemeVariables).then(
-    () => {
-        return {
-            plugins: [new MiniCssExtractPlugin()],
-            module: {
-                rules: [
-                    // Styles
-                    {
-                        test: /\.scss$/,
-                        use: [
-                            MiniCssExtractPlugin.loader,
-                            //{
-                            //    // Inject result in DOM
-                            //    loader: "style-loader",
-                            //},
-                            {
-                                // to convert the resulting CSS to Javascript to be bundled
-                                loader: "css-loader",
-                                options: {
-                                    importLoaders: 1,
-                                    sourceMap:
-                                        process.env.NODE_ENV !== "production",
-                                },
-                            },
-                            {
-                                // Convert SAAS to CSS
-                                loader: "sass-loader",
-                                options: {
-                                    sourceMap:
-                                        process.env.NODE_ENV !== "production",
 
-                                },
+module.exports = Promise.resolve({
+    plugins: [new MiniCssExtractPlugin()],
+        module: {
+            rules: [
+                // Styles
+                {
+                    test: /\.s?[ca]ss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        //{
+                        //    // Inject result in DOM
+                        //    loader: "style-loader",
+                        //},
+                        {
+                            // to convert the resulting CSS to Javascript to be bundled
+                            loader: "css-loader",
+                            options: {
+                                importLoaders: 1,
+                                sourceMap:
+                                    process.env.NODE_ENV !== "production",
                             },
-                        ],
-                    },
-                    {
-                        test: /\.less$/,
-                        use: [
-                            MiniCssExtractPlugin.loader,
-                            //{
-                            //    // Inject result in the DOM with <style> tags
-                            //    loader: "style-loader",
-                            //},
-                            {
-                                loader: "css-loader",
-                                options: {
-                                    importLoaders: 1,
-                                    sourceMap:
-                                        process.env.NODE_ENV !== "production",
+                        },
+                        {
+                            // Convert SAAS to CSS
+                            loader: "sass-loader",
+                            options: {
+                                implementation: require('sass'),
+                                sourceMap:
+                                    process.env.NODE_ENV !== "production",
+                            },
+                        }
+                    ],
+                },
+                {
+                    test: /\.less$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        //{
+                        //    // Inject result in the DOM with <style> tags
+                        //    loader: "style-loader",
+                        //},
+                        {
+                            loader: "css-loader",
+                            options: {
+                                importLoaders: 1,
+                                sourceMap:
+                                    process.env.NODE_ENV !== "production",
 
-                                },
                             },
-                            {
-                                loader: "less-loader",
-                                options: {
-                                    lessOptions: {
-                                        javascriptEnabled: true,
-                                    },
+                        },
+                        {
+                            loader: "less-loader",
+                            options: {
+                                lessOptions: {
+                                    javascriptEnabled: true,
+                                },
 
-                                    // TODO
-                                    //prependData: JSON.stringify(antThemeVariables)
-                                },
+                                // TODO
+                                //prependData: JSON.stringify(antThemeVariables)
                             },
-                        ],
-                    },
+                        },
+                    ],
+                },
 
-                    // static assets
-                    {
-                        test: /\.png$/,
-                        use: [
-                            {
-                                loader: "url-loader",
-                                options: {
-                                    limit: 10000,
-                                    name: "img/[hash].[ext]",
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        test: /\.jpg$/,
-                        use: [
-                            {
-                                loader: "file-loader",
-                                options: {
-                                    name: "img/[hash].[ext]",
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        test: /\.gif$/,
-                        use: "url-loader?limit=10000",
-                    },
-
-                    // If fonts/images size are lower than 10K, embbed them in the css file
-                    {
-                        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                        use: {
+                // static assets
+                {
+                    test: /\.png$/,
+                    use: [
+                        {
                             loader: "url-loader",
                             options: {
                                 limit: 10000,
-                                mimetype: "application/font-woff",
-                                name: "fonts/[hash].woff",
+                                name: "img/[hash].[ext]",
                             },
                         },
-                    },
-                    {
-                        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                        use: {
-                            loader: "url-loader",
+                    ],
+                },
+                {
+                    test: /\.jpg$/,
+                    use: [
+                        {
+                            loader: "file-loader",
                             options: {
-                                limit: 10000,
-                                mimetype: "application/font-woff",
-                                name: "fonts/[hash].woff2",
+                                name: "img/[hash].[ext]",
                             },
                         },
-                    },
-                    {
-                        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                        use: {
-                            loader: "url-loader",
-                            options: {
-                                limit: 10000,
-                                mimetype: "application/octet-stream",
-                                name: "fonts/[hash].ttf",
-                            },
+                    ],
+                },
+                {
+                    test: /\.gif$/,
+                    use: "url-loader?limit=10000",
+                },
+                {
+                    test: /\.svg/,
+                    use: "svg-url-loader"
+                },
+
+                // If fonts/images size are lower than 10K, embbed them in the css file
+                {
+                    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                    use: {
+                        loader: "url-loader",
+                        options: {
+                            limit: 10000,
+                            mimetype: "application/font-woff",
+                            name: "fonts/[hash].woff",
                         },
                     },
-                    {
-                        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                        use: {
-                            loader: "url-loader",
-                            options: {
-                                name: "fonts/[hash].eot",
-                            },
+                },
+                {
+                    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                    use: {
+                        loader: "url-loader",
+                        options: {
+                            limit: 10000,
+                            mimetype: "application/font-woff",
+                            name: "fonts/[hash].woff2",
                         },
                     },
-                ],
-            },
-        };
+                },
+                {
+                    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                    use: {
+                        loader: "url-loader",
+                        options: {
+                            limit: 10000,
+                            mimetype: "application/octet-stream",
+                            name: "fonts/[hash].ttf",
+                        },
+                    },
+                },
+                {
+                    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                    use: {
+                        loader: "url-loader",
+                        options: {
+                            name: "fonts/[hash].eot",
+                        },
+                    },
+                },
+            ],
+        },
     }
 );

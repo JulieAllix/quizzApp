@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
-import {InputCustom} from "../../components/InputCustom";
+import {InputNumberCustom} from "../../components/InputNumberCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 import {Slideshow} from "./Quizz/Slideshow";
 
@@ -19,6 +19,7 @@ import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers";
 import "./Quizz.scss";
 
+
 interface Props {
 
 }
@@ -28,7 +29,7 @@ export const Quizz = (props: Props) => {
     const dispatch = useDispatch();
 
     const [cardsData, setCardsData] = useState<CardData[]>([]);
-    const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<string>("0");
+    const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<number>(0);
 
     const [quizzMode, setQuizzMode] = useState<"random" | "training" | null>(null);
     const [isLoading, setIsLoading] = useState<"random" | "training" | "trainingsList" | null>(null);
@@ -36,7 +37,7 @@ export const Quizz = (props: Props) => {
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     const handleStartRandomQuizz = (): void => {
-        if (numberOfQuestionsToPick === "0") {
+        if (numberOfQuestionsToPick === 0) {
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: 'Please define a number of questions higher than 0.'});
         } else {
@@ -58,8 +59,8 @@ export const Quizz = (props: Props) => {
                             randomlySelectedData.push(allData[questionIndex]);
                             selectedQuestionIndexes.push(questionIndex);
                         }
-                    } while (randomlySelectedData.length < parseInt(numberOfQuestionsToPick));
-                    setNumberOfQuestionsToPick("0");
+                    } while (randomlySelectedData.length < numberOfQuestionsToPick);
+                    setNumberOfQuestionsToPick(0);
                     setCardsData(randomlySelectedData);
                     setIsLoading(null);
                 }
@@ -76,7 +77,7 @@ export const Quizz = (props: Props) => {
             getAllTrainingCardsOfUser(user.trainingCardsList).then(allTrainingCardsOfUser => {
                 setQuizzMode("training");
                 setCardsData(allTrainingCardsOfUser);
-                setNumberOfQuestionsToPick("0");
+                setNumberOfQuestionsToPick(0);
                 setIsLoading(null);
             }).catch(error => {
                 console.log('error getAllCardsOfUser Quizz', error);
@@ -158,7 +159,7 @@ export const Quizz = (props: Props) => {
                         <div className={'Component_Quizz__card'}>
                             <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
                             <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
-                            <InputCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
+                            <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
                             <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
                         </div>
                         <div className={'Component_Quizz__card'}>

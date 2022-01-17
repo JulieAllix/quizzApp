@@ -1,7 +1,8 @@
 import * as React from "react";
-import {Result} from "antd";
 
 import "./Error.scss";
+import {Button} from "primereact/button";
+
 namespace Error {
 	export interface Props {
 	}
@@ -12,6 +13,7 @@ namespace Error {
 }
 
 export class Error extends React.Component<Error.Props, Error.State> {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -20,28 +22,25 @@ export class Error extends React.Component<Error.Props, Error.State> {
 	}
 
 
+
 	componentDidCatch(error, info) {
-		//Sentry.captureException(error);
 
 		// Display fallback UI
 		this.setState({hasError: true});
 	}
 
+
 	public render() {
 		if (this.state.hasError) {
 			return (
-				<div className={"error-page"}>
-
-					<Result
-						status={"error"}
-						title={"Une erreur est survenue"}
-						subTitle={
-							<span>
-								Vous pouvez tenter d'actualiser la page ou de
-								revenir à l'<a href={"/"}>Accueil</a>.
-							</span>
-						}
-					/>
+				<div className="h-full flex flex-column justify-content-between error-page">
+					<div className="flex mt-5 justify-content-start content-header">
+					</div>
+					<div className='flex flex-column align-items-center content-footer'>
+						<span className="mb-3 text-error">Erreur 500</span>
+						<span className="mb-5 text-description">Une erreur est survenue !</span>
+						<Button label="Revenir sur la page d'accueil" onClick={()=>{ window.location.href = '/' }} className={"btn-redirect"} />
+					</div>
 				</div>
 			);
 		}

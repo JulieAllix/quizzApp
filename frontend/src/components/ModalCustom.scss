@@ -1,11 +1,18 @@
 @import "src/assets/css/variables";
 
-.Component-ModalCustom {
+.Component_ModalCustom {
+
+  &__modalTitle {
+    font-size: 20px;
+    font-family: Poppins;
+    font-weight: bold;
+    font-style: normal;
+  }
+
   &__modalContent {
     font-size: 14px;
-    font-family: Work Sans;
+    font-family: Poppins;
     font-style: normal;
-    font-weight: normal;
   }
 
 

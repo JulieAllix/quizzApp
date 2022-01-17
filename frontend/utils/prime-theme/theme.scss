@@ -1,0 +1,64 @@
+@use 'src/mixins/breakpoint';
+@import './variables';
+@import './_fonts';
+@import './_extensions';
+@import './_components';
+
+#popup_menu {
+    background: #0A1E2F;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    overflow: hidden;
+
+    .p-menuitem {
+        &:first-child {
+            margin: 8px;
+        }
+        margin: 0 8px 8px 8px;
+        &-link {
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 20px;
+            font-family: Roboto, sans-serif;
+            color: white;
+            &:hover {
+                background-color: rgba(245, 251, 252, 0.2);
+                span {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+* {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.p-button-responsive {
+    display: grid;
+    padding: 0 10px;
+    min-width: 44px;
+    .p-button {
+        @include breakpoint.breakpoint(0px 1919px) {
+            &-label {
+                display: none;
+            }
+        }
+        @include breakpoint.breakpoint(1920px) {
+            &-icon {
+                display: none;
+            }
+        }
+        &-icon {
+            margin: 0;
+        }
+    }
+}

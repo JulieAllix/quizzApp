@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const themeConfigGenerator = require("./webpack.theme");
 const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
 
-module.exports = themeConfigGenerator.then((themeConfig) => {
+module.exports = Promise.resolve(themeConfigGenerator.then((themeConfig) => {
     return merge(themeConfig, {
         module: {
             rules: [
@@ -39,4 +39,4 @@ module.exports = themeConfigGenerator.then((themeConfig) => {
             }),
         ],
     });
-});
+}));

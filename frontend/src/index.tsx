@@ -5,14 +5,16 @@ import {Provider} from "react-redux";
 
 import { App } from "./App";
 import { Error } from "./Error";
-//import {StatusWeb} from "./components/StatusWeb";
 import {buildStore} from "./utils/redux/store";
 
-require("antd/dist/antd.less");
-
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.min.css';
+import "primereact/resources/themes/saga-blue/theme.css";
+import '../utils/prime-theme/theme.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 render(
-
 	<Error>
 		<BrowserRouter>
 			<Provider store={buildStore()}>

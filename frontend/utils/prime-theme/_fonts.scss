@@ -1,0 +1,11 @@
+// Configuration for the font-face of the theme, defaults to the system font so left as blank
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Ubuntu:wght@400;700&display=swap);
+
+.ubuntu {
+    -webkit-font-smoothing: antialiased;
+    font-family: "Ubuntu", "sans-serif";
+}
+.roboto {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto', sans-serif;
+}

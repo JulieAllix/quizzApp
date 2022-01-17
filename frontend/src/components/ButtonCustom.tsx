@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import {Button} from "antd";
+import { ProgressSpinner } from 'primereact/progressspinner';
+import {Button} from "primereact/button";
 
 import "./ButtonCustom.scss";
 
@@ -11,15 +10,14 @@ interface Props {
 }
 
 export const ButtonCustom: React.FC<Props> = (props) => {
-    const antIcon = <LoadingOutlined style={{ fontSize: 24, color: "white" }} spin />;
 
     return (
         <div className={'Component_ButtonCustom'}>
-            <div className={'Component_ButtonCustom__buttonWrapper'}>
-                <Button size={"large"} shape={"round"} onClick={props.isLoading ? () => {} : props.onClick}>
-                    {props.isLoading ? <Spin indicator={antIcon} /> : props.children}
-                </Button>
-            </div>
+            <Button className={"Component_ButtonCustom__button w-full"} onClick={props.isLoading ? () => {} : props.onClick}>
+                <span className={'Component_ButtonCustom__text'}>
+                {props.isLoading ?<ProgressSpinner style={{height: "30px", width: "30px"}} /> : props.children}
+                </span>
+            </Button>
         </div>
     );
 };

@@ -1,6 +1,8 @@
 @import './assets/css/variables';
 
 body {
+  padding: 0;
+  margin: 0;
   height: 100vh!important;
   overflow: hidden!important;
   background-color: $primary!important;
