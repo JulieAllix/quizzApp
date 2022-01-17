@@ -116,17 +116,22 @@ export const getAllCardsOfUser = async (userUid: string): Promise<CardData[]> =>
 };
 
 export const getAllTrainingCardsOfUser = async (trainingCardsList: number[]): Promise<CardData[]> => {
-    const cardsDataArray = (await studyCardsRef.where("cardUid", "in", trainingCardsList).get()).docs.map(document => document.data());
 
-    const _cardsDataArray = cardsDataArray.map((cardData: CardData) => {
-        return {
-            userUid: cardData.userUid,
-            cardUid: cardData.cardUid,
-            nativeLanguageValue: cardData.nativeLanguageValue,
-            languageToLearnValue: cardData.languageToLearnValue,
-        }
+    const cardsDataArray = trainingCardsList.map(async (trainingCardUid: number) => {
+        return (await studyCardsRef.doc(trainingCardUid.toString()).get()).data();
     });
-    return _cardsDataArray;
+
+    return Promise.all(cardsDataArray).then(response => {
+        const _cardsDataArray = response.map((cardData: CardData) => {
+            return {
+                userUid: cardData.userUid,
+                cardUid: cardData.cardUid,
+                nativeLanguageValue: cardData.nativeLanguageValue,
+                languageToLearnValue: cardData.languageToLearnValue,
+            }
+        });
+        return _cardsDataArray;
+    })
 };
 
 export const getRandomNumberId = (): number => {

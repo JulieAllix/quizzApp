@@ -22,6 +22,7 @@ export const Settings = (props: Props) => {
 
     const [nativeLanguage, setNativeLanguage] = useState<string>(user.nativeLanguage);
     const [studiedLanguage, setStudiedLanguage] = useState<string>(user.languageToLearn);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
@@ -31,6 +32,7 @@ export const Settings = (props: Props) => {
     };
 
     const handleSave = (): void => {
+        setIsLoading(true);
         const updatedUser = {
             userUid: user.userUid,
             email: user.email,
@@ -43,10 +45,12 @@ export const Settings = (props: Props) => {
             dispatch(setUser(updatedUser));
             setIsModalOpen(true);
             setModalContent({title: 'Success', body: 'The user data got saved.'});
+            setIsLoading(false);
         }).catch(error => {
             console.error('error saveUser Settings', error);
             setIsModalOpen(true);
             setModalContent({title: 'Error', body: "The user data couldn't get saved."});
+            setIsLoading(false);
         });
     };
 
@@ -70,7 +74,7 @@ export const Settings = (props: Props) => {
 
 
 
-                <ButtonCustom onClick={handleSave}>Save</ButtonCustom>
+                <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
                 <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
             </div>
             <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>

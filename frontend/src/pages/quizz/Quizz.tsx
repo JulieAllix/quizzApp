@@ -71,8 +71,9 @@ export const Quizz = (props: Props) => {
     };
 
     const handleStartTrainingQuizz = (): void => {
-        setIsLoading("training");
-        getAllTrainingCardsOfUser(user.trainingCardsList).then(allTrainingCardsOfUser => {
+        if (user.trainingCardsList.length > 0) {
+            setIsLoading("training");
+            getAllTrainingCardsOfUser(user.trainingCardsList).then(allTrainingCardsOfUser => {
                 setQuizzMode("training");
                 setCardsData(allTrainingCardsOfUser);
                 setNumberOfQuestionsToPick("0");
@@ -81,6 +82,10 @@ export const Quizz = (props: Props) => {
                 console.log('error getAllCardsOfUser Quizz', error);
                 setIsLoading(null);
             })
+        } else {
+            setIsModalOpen(true);
+            setModalContent({title: 'Error', body: 'There are no cards in the trainings list at the moment.'});
+        };
     };
 
     const handleSuccess = (index: number): void => {

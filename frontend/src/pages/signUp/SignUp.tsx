@@ -75,13 +75,9 @@ export const SignUp = (props: Props) => {
                 <div className={'Component_SignUp__link'} onClick={() => history.push("/sign-in")}>Sign in</div>
             </div>
         </div>
-
-
-
-            <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
-                {modalContent.body}
-            </ModalCustom>
-
+        <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
+            {modalContent.body}
+        </ModalCustom>
     </div>
     )
 };

@@ -47,9 +47,14 @@ export const Form = (props: Props) => {
                 setModalContent({title: 'Success', body: 'Your card has been successfully added to the database !'});
                 setNativeLanguageValue('');
                 setLanguageToLearnValue('');
+
+                const updatedTrainingCardsList = [...user.trainingCardsList];
+                updatedTrainingCardsList.push(cardData.cardUid);
+
                 const updatedUser = {
                     ...user,
-                    numberOfCards: user.numberOfCards + 1
+                    numberOfCards: user.numberOfCards + 1,
+                    trainingCardsList: updatedTrainingCardsList
                 };
                 saveUser(updatedUser).then(() => {
                     getUserFirebaseData(user.userUid).then(userData => {
@@ -62,7 +67,7 @@ export const Form = (props: Props) => {
                 }).catch(error => {
                     console.error("error saveUser Form", error);
                     setIsLoading(false);
-                })
+                });
             }).catch(error => {
                 console.log('error createSpanishData', error);
                 setIsModalOpen(true);
