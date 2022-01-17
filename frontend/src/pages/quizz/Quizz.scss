@@ -61,5 +61,8 @@
     color: white;
   }
 
-
+  &__quizzDetailsWrapper {
+    display: flex;
+    justify-content: space-between;
+  }
 }

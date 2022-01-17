@@ -142,7 +142,10 @@ export const Quizz = (props: Props) => {
             <div className={'Component_Quizz__contentWrapper'}>
                 <div className={'Component_Quizz__instruction'}>{quizzMode === null ? "Choose your quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</div>
                 {quizzMode !== null &&
-                <div className={'Component_Quizz__text'}>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</div>
+                    <div className={'Component_Quizz__quizzDetailsWrapper'}>
+                        <div className={'Component_Quizz__text'}>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</div>
+                        <div className={'Component_Quizz__text'} onClick={() => setQuizzMode(null)}>Stop quizz</div>
+                    </div>
                 }
                 {quizzMode !== null &&
                     <Slideshow

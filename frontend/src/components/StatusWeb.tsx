@@ -1,15 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {API_URL, PROJECT_UID} from "@Utils/constants";
 import {Status} from "@Models/types/bases/enums";
-import {Alert, Result} from 'antd';
+import {Message} from "primereact/message";
 
 export const StatusWeb = (props) =>{
 
     const [status,setStatus]  =  useState<Status>(Status.UP)
     const [message,setMessage]  =  useState<string>('')
 
-    useEffect(()=>{
-        setInterval(request,3000)
+    const messageRef = useRef(null);
+
+    useEffect(() => {
+        const intervalId  = setInterval(request,10 * 60 * 1000)
+        return () => clearInterval(intervalId)
     },[])
 
     const request = () =>{
@@ -19,7 +22,7 @@ export const StatusWeb = (props) =>{
                     setStatus(response.result)
                     setMessage(response.message)
                 }
-            }).catch((error)=>console.log('Not JSON',error))
+            }).catch((error)=>console.error('Not JSON',error))
         }).catch((error)=>{
             console.error(error)
         })
@@ -29,14 +32,15 @@ export const StatusWeb = (props) =>{
     const getAlertPage = () =>{
         switch (status) {
             case Status.DOWN:
-                return (<Result
-                    status="500"
-                    title="500"
-                    subTitle={message}
-                />)
+                return (<div style={{width: "100%", height:"100%"}}>
+                        ERREUR:
+                        {message}
+                    </div>
+                )
             case Status.MAINTENANCE:
+                messageRef.current.show({ severity: 'warn', summary: "Attention ", detail: message });
                 return (<div>
-                    <Alert style={{position:"fixed",width:'100%'}} message={message} type="warning" showIcon />
+                    <Message style={{position:"fixed",width:'100%'}} ref={messageRef} />
                     {props.children}
                 </div>)
             case Status.UP:

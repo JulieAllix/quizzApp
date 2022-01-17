@@ -1,15 +1,22 @@
-import {notification} from "antd";
+import {notification} from "./events";
 import {Api} from "@Models/utils/Api";
+import React from "react";
 
-function responseHandler(response) {
+function responseHandler(response: Response): Promise<any> {
 	let status = response.status;
-	if (status != 200) {
+	if (status !== 200) {
 		return response.json().then((error) => {
-			notification.error({
-				message: "Une erreur est survenue",
-				description: error.message,
+			if (status !== 401) {
+				notification.emit("error", (
+					<code>
+						{error?.message}
+				</code>
+			));
+			}
+			return Promise.reject({
+				response,
+				error
 			});
-			return Promise.reject(error);
 		});
 	} else {
 		return response.json();
