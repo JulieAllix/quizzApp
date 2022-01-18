@@ -21,6 +21,7 @@ const db = firebase.firestore();
 
 const usersRef = db.collection('users');
 const studyCardsRef = db.collection('studyCards');
+const studyCardsRefBis = db.collection('studyCardsSaved');
 // AUTH
 
 export const registerWithEmailAndPassword = (email:string,password:string) =>{
@@ -66,6 +67,16 @@ export const createCard = async (data: CardData): Promise<void> => {
     return studyCardsRef.doc(data.cardUid.toString()).set({
         ...data
     });
+};
+
+export const createCardBis = async (data: CardData): Promise<void> => {
+    return studyCardsRefBis.doc(data.cardUid.toString()).set({
+        ...data
+    });
+};
+
+export const deleteCard = async (data: CardData): Promise<void> => {
+    return studyCardsRef.doc(data.cardUid.toString()).delete();
 };
 
 export const saveDataBase  = async (data: CardData) => {

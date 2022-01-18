@@ -1,14 +1,13 @@
 import * as React from "react";
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {v4} from "uuid";
 import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
-import {createCard, getUserFirebaseData, saveUser} from "@Utils/firebaseConfig";
+import {createCard, getRandomNumberId, getUserFirebaseData, saveUser} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers";
 import "./Form.scss";
@@ -38,7 +37,7 @@ export const Form = (props: Props) => {
             setIsLoading(true);
             const cardData = {
                 userUid: user.userUid,
-                cardUid: v4(),
+                cardUid: getRandomNumberId(),
                 nativeLanguageValue: nativeLanguageValue,
                 languageToLearnValue: languageToLearnValue
             }

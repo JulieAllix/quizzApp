@@ -8,7 +8,10 @@ import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
 import {setUser} from "@Utils/redux/reducers";
-import {saveUser, signOut} from "@Utils/firebaseConfig";
+import {
+    saveUser,
+    signOut
+} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import "./Settings.scss";
 
@@ -71,8 +74,6 @@ export const Settings = (props: Props) => {
                         <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
                     </div>
                 </div>
-
-
 
                 <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
                 <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
