@@ -25,7 +25,7 @@ export const Form = (props: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
-
+    console.log(getRandomNumberId())
     const handleSend = () => {
         if (nativeLanguageValue === '') {
             setIsModalOpen(true);

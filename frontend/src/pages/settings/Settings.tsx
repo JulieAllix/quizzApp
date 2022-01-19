@@ -74,7 +74,6 @@ export const Settings = (props: Props) => {
                         <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
                     </div>
                 </div>
-
                 <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
                 <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
             </div>

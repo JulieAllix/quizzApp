@@ -80,7 +80,7 @@ export const Quizz = (props: Props) => {
                 setNumberOfQuestionsToPick(0);
                 setIsLoading(null);
             }).catch(error => {
-                console.log('error getAllCardsOfUser Quizz', error);
+                console.log('error getAllTrainingCardsOfUser Quizz', error);
                 setIsLoading(null);
             })
         } else {

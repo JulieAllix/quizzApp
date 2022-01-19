@@ -146,9 +146,13 @@ export const getAllTrainingCardsOfUser = async (trainingCardsList: number[]): Pr
 };
 
 export const getRandomNumberId = (): number => {
-    const test = [];
+    const array = [];
     for (let i = 0; i < 21; i++) {
-        test.push((Math.random()*10).toString().split('')[0])
+        const randomNumber = (Math.random()*10).toString().split('')[0];
+        if (randomNumber === '0') {
+            array.push('1')
+        } else array.push(randomNumber)
+
     }
-    return Number(test.join(''));
+    return Number(array.join(''));
 }
