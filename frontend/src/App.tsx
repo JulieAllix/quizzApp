@@ -19,6 +19,10 @@ export function App() {
 
 	console.log('user', user);
 
+	window.addEventListener("scroll", (e) => {
+		e.preventDefault();
+		window.scrollTo(0, 0);
+	});
 	const appHeight = () => {
 		const doc = document.documentElement
 		doc.style.setProperty('--app-height', `${window.innerHeight}px`)
