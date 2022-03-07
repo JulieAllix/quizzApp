@@ -19,6 +19,13 @@ export function App() {
 
 	console.log('user', user);
 
+	const appHeight = () => {
+		const doc = document.documentElement
+		doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+	}
+	window.addEventListener('resize', appHeight)
+	appHeight();
+
 	const UnAuthRoute = (Component: any) => {
 		return (props: any) => {
 			if (user !== null) {

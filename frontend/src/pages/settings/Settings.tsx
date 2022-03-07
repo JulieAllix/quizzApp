@@ -63,7 +63,7 @@ export const Settings = (props: Props) => {
         >
             <div className={'Component_Settings__contentWrapper'}>
                 <div className={'Component_Settings__instruction'}>Settings</div>
-                <div className={'Component_Settings__cardsWrapper'}>
+                <div className={'Component_Settings__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`}}>
                     <div className={'Component_Settings__card'}>
                         <div className={'Component_Settings__cardTitle'}>Personal data</div>
                         <div className={'Component_Settings__subtitle'}>{user.email}</div>
@@ -73,9 +73,13 @@ export const Settings = (props: Props) => {
                         <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
                         <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
                     </div>
+                    <div className={'Component_Settings__buttonsWrapper'}>
+                        <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
+                        <div style={{width: "10px"}}/>
+                        <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
+                    </div>
                 </div>
-                <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
-                <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
+
             </div>
             <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                 {modalContent.body}

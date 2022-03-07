@@ -1,10 +1,11 @@
 @import '../assets/css/variables';
 
 .Component_TabsList {
-  position: relative;
-  height: 100vh;
   display: flex;
+  height: var(--app-height);
+  //overflow-x: hidden;
   flex-direction: column;
+  position: relative;
 
   &__tabContainer {
     bottom: 0;
@@ -19,8 +20,9 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    height: 10vh;
+    height: 10%;
     background-color: white;
+
   }
 
   &__tabItem {
@@ -38,6 +40,7 @@
     letter-spacing: 0px;
     text-align: center;
     color: $grey_dark;
+
 
 
     &__active {

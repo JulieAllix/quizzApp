@@ -1,14 +1,18 @@
 @import './assets/css/variables';
+:root {
+  --app-height: 100%;
+}
 
 body {
   padding: 0;
   margin: 0;
-  height: 100vh!important;
+  height: var(--app-height);
   overflow: hidden!important;
   background-color: $primary!important;
 }
+
 .Component_App {
-  height: 100vh;
+  height: var(--app-height);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 110% 100%;

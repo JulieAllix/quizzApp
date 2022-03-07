@@ -46,7 +46,7 @@ export const Slideshow = (props: Props) => {
     };
 
     return (
-        <div className={'Component_Slideshow'}>
+        <div className={'Component_Slideshow'} style={{height: `${window.innerHeight*0.65}px`, paddingBottom: "20px"}}>
             <AnimatePresence custom={direction}>
                 <motion.div
                     key={page}

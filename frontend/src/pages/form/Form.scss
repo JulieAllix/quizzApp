@@ -12,11 +12,11 @@
   }
 
   &__instruction {
-    font-size: 26px;
+    font-size: 20px;
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     text-align: left;
     color: white;
     line-height: 30px;
@@ -24,7 +24,7 @@
   }
 
   &__cardsWrapper {
-
+    overflow-x: hidden;
   }
 
   &__card {

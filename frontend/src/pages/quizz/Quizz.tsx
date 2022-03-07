@@ -89,6 +89,8 @@ export const Quizz = (props: Props) => {
         };
     };
 
+    //setTimeout(() => handleStartTrainingQuizz(), 100)
+
     const handleSuccess = (index: number): void => {
         setIsLoading("trainingsList");
         const trainingCardsList = [...user.trainingCardsList];
@@ -140,7 +142,7 @@ export const Quizz = (props: Props) => {
             className={'Component_Quizz'}
         >
             <div className={'Component_Quizz__contentWrapper'}>
-                <div className={'Component_Quizz__instruction'}>{quizzMode === null ? "Choose your quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</div>
+                <div className={'Component_Quizz__instruction'}>{quizzMode === null ? "Quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</div>
                 {quizzMode !== null &&
                     <div className={'Component_Quizz__quizzDetailsWrapper'}>
                         <div className={'Component_Quizz__text'}>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</div>
@@ -158,7 +160,7 @@ export const Quizz = (props: Props) => {
                     />
                 }
                 {quizzMode === null &&
-                    <div className={'Component_Quizz__cardsWrapper'}>
+                    <div className={'Component_Quizz__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
                         <div className={'Component_Quizz__card'}>
                             <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
                             <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
