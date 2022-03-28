@@ -21,7 +21,7 @@ export function App() {
 
 	window.addEventListener("scroll", (e) => {
 		e.preventDefault();
-		window.scrollTo(0, 0);
+		//window.scrollTo(0, 0);
 	});
 	const appHeight = () => {
 		const doc = document.documentElement
