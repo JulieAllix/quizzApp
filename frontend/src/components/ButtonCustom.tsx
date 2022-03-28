@@ -14,9 +14,16 @@ export const ButtonCustom: React.FC<Props> = (props) => {
     return (
         <div className={'Component_ButtonCustom'}>
             <Button className={"Component_ButtonCustom__button w-full"} onClick={props.isLoading ? () => {} : props.onClick}>
-                <span className={'Component_ButtonCustom__text'}>
-                {props.isLoading ?<ProgressSpinner style={{height: "30px", width: "30px"}} /> : props.children}
-                </span>
+                {props.isLoading ?
+                    <div className={'Component_ButtonCustom__loadingWrapper'}>
+                        <div className={'Component_ButtonCustom__text'}>Loading</div>
+                        <ProgressSpinner style={{height: "24px", width: "24px", margin: "0 0 0 12px"}} />
+                    </div>
+                :
+                    <span className={'Component_ButtonCustom__text'}>
+                        {props.children}
+                    </span>
+                }
             </Button>
         </div>
     );

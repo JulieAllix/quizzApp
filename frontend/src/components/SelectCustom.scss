@@ -1,0 +1,41 @@
+@import "src/assets/css/variables";
+
+.Component_SelectCustom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 12px;
+
+  &__label {
+    font-size: 18px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  &__input {
+    font-size: 14px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    color: $grey_dark;
+    border-radius: 0px;
+  }
+
+};
+
+.p-multiselect {
+  padding: 7px 20px!important;
+  border-radius: 0px!important;
+  background-color: $grey_light!important;
+  color: $grey_dark!important;
+}
+.p-multiselect:focus, .p-multiselect-focused {
+  border-color: $primary!important;
+  box-shadow: 0 0 0 2px rgb(245, 53, 87) !important;
+}
+
+.p-multiselect:hover {
+  border-color: $primary!important;
+}
+

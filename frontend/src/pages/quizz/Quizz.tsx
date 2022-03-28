@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { motion } from "framer-motion";
 
@@ -10,7 +10,7 @@ import {Slideshow} from "./Quizz/Slideshow";
 
 import {CardData} from "@Models/types/bases/Form";
 import {
-    getAllTrainingCardsOfUser,
+    getAllTrainingCardsOfUser, getLanguageByUid,
     getRandomCardsOfUser,
     getUserFirebaseData,
     saveUser
@@ -18,6 +18,7 @@ import {
 import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers";
 import "./Quizz.scss";
+import {Language} from "@Models/types/bases/Language";
 
 
 interface Props {
@@ -30,11 +31,19 @@ export const Quizz = (props: Props) => {
 
     const [cardsData, setCardsData] = useState<CardData[]>([]);
     const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<number>(0);
+    const [languageToLearnData, setLanguageToLearnData] = useState<Language>(null);
 
     const [quizzMode, setQuizzMode] = useState<"random" | "training" | null>(null);
     const [isLoading, setIsLoading] = useState<"random" | "training" | "trainingsList" | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
+
+    useEffect(() => {
+        getLanguageByUid(user.languageToLearn[0]).then(_language => {
+            setLanguageToLearnData(_language);
+            console.log("_language", _language)
+        }).catch(error => console.error('error getLanguagesOfUser', error));
+    }, [user]);
 
     const handleStartRandomQuizz = (): void => {
         if (numberOfQuestionsToPick === 0) {
@@ -42,7 +51,7 @@ export const Quizz = (props: Props) => {
             setModalContent({title: 'Error', body: 'Please define a number of questions higher than 0.'});
         } else {
             setIsLoading("random");
-            getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick)).then(response => {
+            getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick), languageToLearnData.languageUid).then(response => {
                 if (Number(numberOfQuestionsToPick) > response.length) {
                     setIsModalOpen(true);
                     setModalContent({title: 'Error', body: `Please choose a number of questions below or equal to ${response.length} (the total number of cards you have created so far).`});
@@ -74,7 +83,7 @@ export const Quizz = (props: Props) => {
     const handleStartTrainingQuizz = (): void => {
         if (user.trainingCardsList.length > 0) {
             setIsLoading("training");
-            getAllTrainingCardsOfUser(user.trainingCardsList).then(allTrainingCardsOfUser => {
+            getAllTrainingCardsOfUser(user.trainingCardsList, languageToLearnData.languageUid).then(allTrainingCardsOfUser => {
                 setQuizzMode("training");
                 setCardsData(allTrainingCardsOfUser);
                 setNumberOfQuestionsToPick(0);

@@ -9,6 +9,7 @@ interface Props {
     visible: boolean;
     setVisible: (value: boolean) => void;
     title: string;
+    buttonAction?: () => void;
 }
 
 export const ModalCustom: React.FC<Props> = (props) => {
@@ -24,7 +25,7 @@ export const ModalCustom: React.FC<Props> = (props) => {
     const renderFooter = (): JSX.Element => {
         return (
             <div className="Component_ModalCustom__modalFooter">
-                <ButtonCustom onClick={() => props.setVisible(false)}>Ok</ButtonCustom>
+                <ButtonCustom onClick={props.buttonAction ? props.buttonAction : () => props.setVisible(false)}>Ok</ButtonCustom>
             </div>
         )
     }

@@ -5,4 +5,5 @@ export interface User {
 	languageToLearn: string;
 	trainingCardsList: number[];
 	numberOfCards: number;
+	languages: string[];
 }

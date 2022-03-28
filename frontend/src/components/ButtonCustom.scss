@@ -18,4 +18,10 @@
     color: white;
     text-align: center;
   }
+
+  &__loadingWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

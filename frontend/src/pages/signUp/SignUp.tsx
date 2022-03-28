@@ -1,12 +1,13 @@
 import * as React from "react";
 import {useState} from "react";
 import {useHistory} from "react-router";
+import {v4 as uuidv4} from 'uuid';
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 
-import {registerWithEmailAndPassword, saveUser} from "@Utils/firebaseConfig";
+import {createLanguage, registerWithEmailAndPassword, saveUser} from "@Utils/firebaseConfig";
 import "./SignUp.scss";
 
 interface Props {
@@ -26,36 +27,44 @@ export const SignUp = (props: Props) => {
 
     const handleSignUp = () => {
         setIsLoading(true);
-        registerWithEmailAndPassword(email, password).then(createdUser => {
-            saveUser({
-                userUid: createdUser.user.uid,
-                email: email,
-                nativeLanguage: nativeLanguage,
-                languageToLearn: studiedLanguage,
-                trainingCardsList: [],
-                numberOfCards: 0
-            }).then(() => {
-                setIsModalOpen(true);
-                setModalContent({title: 'Success', body: "Your account successfully got created."});
-                setIsLoading(false);
+        const newLanguageUid = uuidv4();
+        const languageData = {
+            languageUid: newLanguageUid,
+            languageName: studiedLanguage
+        }
+        createLanguage(languageData).then(() => {
+            registerWithEmailAndPassword(email, password).then(createdUser => {
+                saveUser({
+                    userUid: createdUser.user.uid,
+                    email: email,
+                    nativeLanguage: nativeLanguage,
+                    languageToLearn: studiedLanguage,
+                    trainingCardsList: [],
+                    numberOfCards: 0,
+                    languages: [newLanguageUid],
+                }).then(() => {
+                    setIsModalOpen(true);
+                    setModalContent({title: 'Success', body: "Your account successfully got created."});
+                    setIsLoading(false);
+                }).catch(error => {
+                    console.log('error saveUser', error);
+                    setIsModalOpen(true);
+                    setModalContent({title: 'Error', body: "Your account couldn't get created."});
+                    setIsLoading(false);
+                });
             }).catch(error => {
-                console.log('error saveUser', error);
+                console.log('error registerWithEmailAndPassword', error);
                 setIsModalOpen(true);
-                setModalContent({title: 'Error', body: "Your account couldn't get created."});
                 setIsLoading(false);
+                if (error.code === "auth/email-already-in-use") {
+                    setModalContent({title: 'Error', body: "An account already exists for this e-mail address."});
+                } else if (error.code === "auth/weak-password") {
+                    setModalContent({title: 'Error', body: "Your password should contain at least 6 characters."});
+                } else {
+                    setModalContent({title: 'Error', body: "Your account creation failed."});
+                }
             });
-        }).catch(error => {
-            console.log('error registerWithEmailAndPassword', error);
-            setIsModalOpen(true);
-            setIsLoading(false);
-            if (error.code === "auth/email-already-in-use") {
-                setModalContent({title: 'Error', body: "An account already exists for this e-mail address."});
-            } else if (error.code === "auth/weak-password") {
-                setModalContent({title: 'Error', body: "Your password should contain at least 6 characters."});
-            } else {
-                setModalContent({title: 'Error', body: "Your account creation failed."});
-            }
-        });
+        }).catch(error => console.log('error createLanguage', error));
     };
 
     return (

@@ -3,4 +3,5 @@ export interface CardData {
     cardUid: number,
     nativeLanguageValue: string,
     languageToLearnValue: string,
+    languageUid: string,
 }

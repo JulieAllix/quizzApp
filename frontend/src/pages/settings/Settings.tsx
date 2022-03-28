@@ -1,14 +1,18 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { motion } from "framer-motion";
+import {v4 as uuidv4} from 'uuid';
 
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
+import {SelectCustom} from "../../components/SelectCustom";
 
 import {setUser} from "@Utils/redux/reducers";
 import {
+    createLanguage,
+    getLanguagesOfUser,
     saveUser,
     signOut
 } from "@Utils/firebaseConfig";
@@ -25,9 +29,26 @@ export const Settings = (props: Props) => {
 
     const [nativeLanguage, setNativeLanguage] = useState<string>(user.nativeLanguage);
     const [studiedLanguage, setStudiedLanguage] = useState<string>(user.languageToLearn);
+
+    const [newLanguage, setNewLanguage] = useState<string>('');
+    const [languagesdata, setLanguagesdata] = useState<{name: string, value: string}[]>(null);
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
+
+    useEffect(() => {
+        getLanguagesOfUser(user).then(_languages => {
+            const reformattedData = _languages.map(language => {
+                return {
+                    name: language.languageName,
+                    value: language.languageUid
+                }
+            });
+            setLanguagesdata(reformattedData)
+        }).catch(error => console.error('error getLanguagesOfUser', error));
+    }, []);
 
     const handleSignOut = (): void => {
         dispatch(setUser(null));
@@ -42,7 +63,8 @@ export const Settings = (props: Props) => {
             nativeLanguage: nativeLanguage,
             languageToLearn: studiedLanguage,
             trainingCardsList: user.trainingCardsList,
-            numberOfCards: user.numberOfCards
+            numberOfCards: user.numberOfCards,
+            languages: user.languages
         }
         saveUser(updatedUser).then(() => {
             dispatch(setUser(updatedUser));
@@ -57,6 +79,64 @@ export const Settings = (props: Props) => {
         });
     };
 
+    const handleSaveNewLanguage = () => {
+        setIsLoading(true);
+        const newLanguageUid = uuidv4();
+        const languageData = {
+            languageUid: newLanguageUid,
+            languageName: newLanguage
+        }
+        createLanguage(languageData).then(() => {
+            const updatedLanguages = [...user.languages];
+            updatedLanguages.push(newLanguageUid);
+
+            const updatedUserData = {
+                ...user,
+                languages: updatedLanguages
+            };
+
+            saveUser(updatedUserData).then(newUserData => {
+                dispatch(setUser(newUserData));
+                setIsAddModalOpen(false);
+                setIsModalOpen(true);
+                setModalContent({title: 'Success', body: 'The new language got saved.'});
+                setIsLoading(false);
+                setNewLanguage('');
+            }).catch(error => {
+                console.error("error createLanguage", error);
+                setIsAddModalOpen(false);
+                setIsModalOpen(true);
+                setModalContent({title: 'Error', body: "The new language couldn't get saved."});
+                setIsLoading(false);
+                setNewLanguage('');
+            });
+        }).catch(error => {
+            console.error("error createLanguage", error);
+            setIsAddModalOpen(false);
+            setIsModalOpen(true);
+            setModalContent({title: 'Error', body: "The new language couldn't get saved."});
+            setIsLoading(false);
+            setNewLanguage('');
+        })
+    };
+/*
+    const handleCreateNewCollection = (): void => {
+        getAllBackupCardsOfUser(user.userUid).then(allData => {
+            allData.map(data => {
+                const newData = {
+                    userUid: data.userUid,
+                    cardUid: data.cardUid,
+                    nativeLanguageValue: data.nativeLanguageValue,
+                    languageToLearnValue: data.languageToLearnValue,
+                    languageUid: '35d5fbc5-1aef-430e-972c-06359633ced2',
+                }
+                createCard(newData).then(() => {
+                    console.log('ok')
+                }).catch(error => console.error("error createCardBis", error))
+            })
+        }).catch(error => console.error("error getAllCardsOfUser", error))
+    }
+*/
     return (
         <motion.div
             className={'Component_Settings'}
@@ -71,12 +151,21 @@ export const Settings = (props: Props) => {
                     </div>
                     <div className={'Component_Settings__lastCard'}>
                         <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
-                        <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
+
+                        <SelectCustom
+                            label={'Studied language'}
+                            selectedValues={studiedLanguage}
+                            setSelectedValues={setStudiedLanguage}
+                            list={languagesdata}
+                            placeholder={""}
+                            selectionLimit={1}
+                        />
+                        <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
+                        <ButtonCustom onClick={() => setIsAddModalOpen(true)}>Add new language</ButtonCustom>
                     </div>
                     <div className={'Component_Settings__buttonsWrapper'}>
-                        <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
                         <div style={{width: "10px"}}/>
-                        <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
+                        <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
                     </div>
                 </div>
 
@@ -84,6 +173,12 @@ export const Settings = (props: Props) => {
             <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
                 {modalContent.body}
             </ModalCustom>
+            <ModalCustom visible={isAddModalOpen} setVisible={setIsAddModalOpen} title={"Add a new language"} buttonAction={handleSaveNewLanguage}>
+                <InputCustom label={'New language'} value={newLanguage} setValue={setNewLanguage}/>
+            </ModalCustom>
         </motion.div>
     );
 };
+/*
+                        <ButtonCustom onClick={handleCreateNewCollection} isLoading={isLoading}>Save new cards</ButtonCustom>
+ */
