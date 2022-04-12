@@ -91,14 +91,14 @@ export const Form = (props: Props) => {
             });
         }
     };
-
+//height: `${window.innerHeight*0.8}px`,
     return (
         <motion.div
             className={'Component_Form'}
         >
             <div className={'Component_Form__contentWrapper'}>
                 <div className={'Component_Form__instruction'}>New quizz card</div>
-                <div className={'Component_Form__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
+                <div className={'Component_Form__cardsWrapper'} style={{paddingBottom: "20px"}}>
                     <div className={'Component_Form__card'}>
                         <div className={'Component_Form__cardTitle'}>{user.nativeLanguage} word</div>
                         <div className={'Component_Form__subtitle'}>Add a word in your mother tongue.</div>
