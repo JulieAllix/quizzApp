@@ -47,7 +47,7 @@ export const Form = (props: Props) => {
             setModalContent({title: 'Error', body: `Please enter the ${user.nativeLanguage} word.`});
         } else if (languageToLearnValue === '') {
             setIsModalOpen(true);
-            setModalContent({title: 'Error', body: `Please enter the ${user.languageToLearn} translation.`});
+            setModalContent({title: 'Error', body: `Please enter the ${languageToLearnData.languageName} translation.`});
         } else {
             setIsLoading(true);
             const cardData = {
