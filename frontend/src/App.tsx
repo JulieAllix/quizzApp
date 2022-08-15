@@ -2,6 +2,7 @@ import React from "react";
 import {Redirect, Route, Switch} from "react-router";
 import {useSelector} from "react-redux";
 
+import {BigScreenMessage} from "./components/BigScreenMessage";
 import {PictogramCustom} from "./components/PictogramCustom";
 import {SignUp} from "./pages/signUp/SignUp";
 import {SignIn} from "./pages/signIn/SignIn";
@@ -16,8 +17,6 @@ import "./App.scss";
 
 export function App() {
 	const user = useSelector((state: State) => state.user);
-
-	console.log('user', user);
 
 	window.addEventListener("scroll", (e) => {
 		e.preventDefault();
@@ -51,24 +50,27 @@ export function App() {
 	};
 
 	return (
-		<div className={'Component_App'} style={{backgroundImage: `url(${user !== null ? background2 : background})`}}>
-			<div className={'Component_App__logo'}>
-				<PictogramCustom name={'Brain'} width={'40px'} />
+		<div>
+			<div className={'Component_App'} style={{backgroundImage: `url(${user !== null ? background2 : background})`}}>
+				<div className={'Component_App__logo'}>
+					<PictogramCustom name={'Brain'} width={'40px'} />
+				</div>
+				<Switch>
+					<Route path="/sign-up" render={UnAuthRoute(SignUp)} exact={true}/>
+					<Route path="/sign-in" render={UnAuthRoute(SignIn)} exact={true}/>
+
+					<Route path="/app-content" render={AuthRoute(TabsList)} exact={true}/>
+
+					<Route path="/" exact={true} render={(props) => {
+						if (user === null) {
+							return <Redirect to="/sign-in"/>
+						} else {
+							return <Redirect to="/app-content"/>
+						}
+					}}/>
+				</Switch>
 			</div>
-			<Switch>
-				<Route path="/sign-up" render={UnAuthRoute(SignUp)} exact={true}/>
-				<Route path="/sign-in" render={UnAuthRoute(SignIn)} exact={true}/>
-
-				<Route path="/app-content" render={AuthRoute(TabsList)} exact={true}/>
-
-				<Route path="/" exact={true} render={(props) => {
-					if (user === null) {
-						return <Redirect to="/sign-in"/>
-					} else {
-						return <Redirect to="/app-content"/>
-					}
-				}}/>
-			</Switch>
+			<BigScreenMessage />
 		</div>
 	);
 }

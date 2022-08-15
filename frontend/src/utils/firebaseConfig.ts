@@ -99,9 +99,12 @@ export const getRandomCardsOfUser = async (userUid: string, numberOfQuestions: n
     for (let i = 0; i < numberOfQuestions; i++) {
         arrayOfRandomUids.push(getRandomNumberId())
     };
-    console.log("here")
+
     const cardsDataArray = arrayOfRandomUids.map(async (randomUid: string) => {
-        const array = (await studyCardsRef.where("userUid", "==", userUid).where("languageUid", "==", languageUid).where("cardUid", ">=", randomUid).orderBy("cardUid").limit(1).get()).docs.map(document => document.data());
+        const array = (await studyCardsRef.where("userUid", "==", userUid)
+            .where("languageUid", "==", languageUid)
+            .where("cardUid", ">=", randomUid)
+            .orderBy("cardUid").limit(1).get()).docs.map(document => document.data());
         return array[0];
     });
 
