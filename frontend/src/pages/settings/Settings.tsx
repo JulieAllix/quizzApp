@@ -7,7 +7,7 @@ import {v4 as uuidv4} from 'uuid';
 import {ButtonCustom} from "../../components/ButtonCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
-import {SelectCustom} from "../../components/SelectCustom";
+//import {SelectCustom} from "../../components/SelectCustom";
 
 import {setUser} from "@Utils/redux/reducers";
 import {
@@ -18,6 +18,7 @@ import {
 } from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import "./Settings.scss";
+import {DropdownCustom} from "../../components/DropdownCustom";
 
 interface Props {
 
@@ -28,10 +29,10 @@ export const Settings = (props: Props) => {
     const dispatch = useDispatch();
 
     const [nativeLanguage, setNativeLanguage] = useState<string>(user.nativeLanguage);
-    const [studiedLanguage, setStudiedLanguage] = useState<string>(user.languageToLearn);
-
+    const [studiedLanguage, setStudiedLanguage] = useState<{name: string, code: string}>(null);
+    console.log("studiedLanguage", studiedLanguage)
     const [newLanguage, setNewLanguage] = useState<string>('');
-    const [languagesdata, setLanguagesdata] = useState<{name: string, value: string}[]>(null);
+    const [languagesdata, setLanguagesdata] = useState<{name: string, code: string}[]>(null);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -39,11 +40,18 @@ export const Settings = (props: Props) => {
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     useEffect(() => {
+        if (languagesdata) {
+            const languageToLearnData = languagesdata.find(languageItem => languageItem.code === user.languageToLearn);
+            setStudiedLanguage(languageToLearnData)
+        }
+    }, [user.languageToLearn, languagesdata]);
+
+    useEffect(() => {
         getLanguagesOfUser(user).then(_languages => {
             const reformattedData = _languages.map(language => {
                 return {
                     name: language.languageName,
-                    value: language.languageUid
+                    code: language.languageUid
                 }
             });
             setLanguagesdata(reformattedData)
@@ -61,7 +69,7 @@ export const Settings = (props: Props) => {
             userUid: user.userUid,
             email: user.email,
             nativeLanguage: nativeLanguage,
-            languageToLearn: studiedLanguage,
+            languageToLearn: studiedLanguage.code,
             trainingCardsList: user.trainingCardsList,
             numberOfCards: user.numberOfCards,
             languages: user.languages
@@ -151,8 +159,15 @@ export const Settings = (props: Props) => {
                     </div>
                     <div className={'Component_Settings__lastCard'}>
                         <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
-
-                        <SelectCustom
+                        <DropdownCustom
+                            label={'Studied language'}
+                            placeholder={""}
+                            list={languagesdata}
+                            selectedValue={studiedLanguage}
+                            setSelectedValue={setStudiedLanguage}
+                        />
+                        {/*
+                                                <SelectCustom
                             label={'Studied language'}
                             selectedValues={studiedLanguage}
                             setSelectedValues={setStudiedLanguage}
@@ -160,6 +175,8 @@ export const Settings = (props: Props) => {
                             placeholder={""}
                             selectionLimit={1}
                         />
+                        */}
+
                         <ButtonCustom onClick={handleSave} isLoading={isLoading}>Save</ButtonCustom>
                         <ButtonCustom onClick={() => setIsAddModalOpen(true)}>Add new language</ButtonCustom>
                     </div>

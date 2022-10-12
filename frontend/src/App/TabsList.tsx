@@ -3,12 +3,13 @@ import { useMeasure } from "./use-measure";
 import { motion } from "framer-motion";
 
 import {FormTab} from "./TabsList/FormTab";
-import {TabsPager} from "./TabsList/TabsPager";
+import {PictogramCustom} from "../components/PictogramCustom";
 import {QuizzTab} from "./TabsList/QuizzTab";
 import {SettingsTab} from "./TabsList/SettingsTab";
+import {TabsPager} from "./TabsList/TabsPager";
 
 import "./TabsList.scss";
-import {PictogramCustom} from "../components/PictogramCustom";
+
 
 
 interface Props {

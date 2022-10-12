@@ -35,7 +35,7 @@ export const Form = (props: Props) => {
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     useEffect(() => {
-        getLanguageByUid(user.languageToLearn[0]).then(_language => {
+        getLanguageByUid(user.languageToLearn).then(_language => {
             setLanguageToLearnData(_language);
             console.log("_language", _language)
         }).catch(error => console.error('error getLanguagesOfUser', error));

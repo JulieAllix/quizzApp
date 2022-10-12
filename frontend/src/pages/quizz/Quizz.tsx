@@ -1,9 +1,13 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
 import { motion } from "framer-motion";
 
 import {ButtonCustom} from "../../components/ButtonCustom";
+//import {CardGame} from "./Quizz/CardGame";
 import {InputNumberCustom} from "../../components/InputNumberCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 import {Slideshow} from "./Quizz/Slideshow";
@@ -19,6 +23,7 @@ import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers";
 import "./Quizz.scss";
 import {Language} from "@Models/types/bases/Language";
+
 
 
 interface Props {
@@ -39,7 +44,7 @@ export const Quizz = (props: Props) => {
     const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
 
     useEffect(() => {
-        getLanguageByUid(user.languageToLearn[0]).then(_language => {
+        getLanguageByUid(user.languageToLearn).then(_language => {
             setLanguageToLearnData(_language);
             console.log("_language", _language)
         }).catch(error => console.error('error getLanguagesOfUser', error));
@@ -159,6 +164,7 @@ export const Quizz = (props: Props) => {
                     </div>
                 }
                 {quizzMode !== null &&
+
                     <Slideshow
                         cardsData={cardsData}
                         quizzMode={quizzMode}
@@ -167,26 +173,28 @@ export const Quizz = (props: Props) => {
                         handleFailed={handleFailed}
                         isLoading={isLoading}
                     />
-                }
-                {quizzMode === null &&
-                    <div className={'Component_Quizz__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
-                        <div className={'Component_Quizz__card'}>
-                            <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
-                            <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
-                            <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-                            <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
-                        </div>
-                        <div className={'Component_Quizz__card'}>
-                            <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
-                            <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
-                            <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
-                        </div>
-                    </div>
-                }
-                <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
-                    {modalContent.body}
-                </ModalCustom>
-            </div>
-        </motion.div>
-    );
+/*
+<CardGame />*/
+}
+{quizzMode === null &&
+<div className={'Component_Quizz__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
+    <div className={'Component_Quizz__card'}>
+        <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
+        <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
+        <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
+        <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
+    </div>
+    <div className={'Component_Quizz__card'}>
+        <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
+        <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
+        <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
+    </div>
+</div>
+}
+<ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
+{modalContent.body}
+</ModalCustom>
+</div>
+</motion.div>
+);
 };
