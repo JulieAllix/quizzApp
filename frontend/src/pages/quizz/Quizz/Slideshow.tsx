@@ -46,7 +46,7 @@ export const Slideshow = (props: Props) => {
     };
 
     return (
-        <div className={'Component_Slideshow'} style={{height: `${window.innerHeight*0.65}px`, paddingBottom: "20px"}}>
+        <div className={'Component_Slideshow'}>
             <AnimatePresence custom={direction}>
                 <motion.div
                     key={page}
@@ -63,6 +63,7 @@ export const Slideshow = (props: Props) => {
                         padding: "20px",
                         position: "absolute",
                         left: 0,
+                        top: 0,
                     }}
 
                     variants={variants}
@@ -99,10 +100,10 @@ export const Slideshow = (props: Props) => {
                 : props.quizzMode === "training" &&
                 <div className={'Component_Slideshow__buttonsWrapper'}>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
+                        <ButtonCustom color={"white"} onClick={() => setShowTranslation(!showTranslation)}>{showTranslation ? "Question" : "Answer"}</ButtonCustom>
                     </div>
                     <div className={'Component_Slideshow__buttonWrapper'}>
-                        <ButtonCustom isLoading={props.isLoading === "trainingsList" ? true : false} onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
+                        <ButtonCustom color={"white"} isLoading={props.isLoading === "trainingsList" ? true : false} onClick={() => props.handleSuccess(page)}>Success</ButtonCustom>
                     </div>
                 </div>
             }

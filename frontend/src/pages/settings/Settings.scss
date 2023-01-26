@@ -6,9 +6,10 @@
 
 
   &__contentWrapper {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     display: flex;
     flex-direction: column;
+
   }
 
   &__cardsWrapper {
@@ -16,7 +17,7 @@
   }
 
   &__instruction {
-    font-size: 26px;
+    font-size: 32px;
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;

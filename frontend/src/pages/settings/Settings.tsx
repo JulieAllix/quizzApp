@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {v4 as uuidv4} from 'uuid';
 
 import {ButtonCustom} from "../../components/ButtonCustom";
+import {DropdownCustom} from "../../components/DropdownCustom";
 import {InputCustom} from "../../components/InputCustom";
 import {ModalCustom} from "../../components/ModalCustom";
 //import {SelectCustom} from "../../components/SelectCustom";
@@ -18,7 +19,6 @@ import {
 } from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import "./Settings.scss";
-import {DropdownCustom} from "../../components/DropdownCustom";
 
 interface Props {
 
@@ -151,7 +151,7 @@ export const Settings = (props: Props) => {
         >
             <div className={'Component_Settings__contentWrapper'}>
                 <div className={'Component_Settings__instruction'}>Settings</div>
-                <div className={'Component_Settings__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`}}>
+                <div className={'Component_Settings__cardsWrapper'} style={{height: `${window.innerHeight*0.75}px`}}>
                     <div className={'Component_Settings__card'}>
                         <div className={'Component_Settings__cardTitle'}>Personal data</div>
                         <div className={'Component_Settings__subtitle'}>{user.email}</div>
@@ -182,7 +182,7 @@ export const Settings = (props: Props) => {
                     </div>
                     <div className={'Component_Settings__buttonsWrapper'}>
                         <div style={{width: "10px"}}/>
-                        <ButtonCustom onClick={handleSignOut}>Sign out</ButtonCustom>
+                        <ButtonCustom onClick={handleSignOut} color={"white"}>Sign out</ButtonCustom>
                     </div>
                 </div>
 

@@ -1,30 +1,58 @@
 import * as React from "react";
+import styled from "styled-components";
 import { ProgressSpinner } from 'primereact/progressspinner';
 import {Button} from "primereact/button";
-
-import "./ButtonCustom.scss";
 
 interface Props {
     onClick: () => void;
     isLoading?: boolean;
+    color?: "pink" | "white";
 }
 
 export const ButtonCustom: React.FC<Props> = (props) => {
 
     return (
-        <div className={'Component_ButtonCustom'}>
-            <Button className={"Component_ButtonCustom__button w-full"} onClick={props.isLoading ? () => {} : props.onClick}>
+        <ButtonWrapper>
+            <ButtonStyle onClick={props.isLoading ? () => {} : props.onClick} color={props.color ? props.color : "pink"}>
                 {props.isLoading ?
-                    <div className={'Component_ButtonCustom__loadingWrapper'}>
-                        <div className={'Component_ButtonCustom__text'}>Loading</div>
+                    <LoadingWrapper>
+                        <ButtonText className={'Component_ButtonCustom__text'} color={props.color ? props.color : "pink"}>Loading</ButtonText>
                         <ProgressSpinner style={{height: "24px", width: "24px", margin: "0 0 0 12px"}} />
-                    </div>
+                    </LoadingWrapper>
                 :
-                    <span className={'Component_ButtonCustom__text'}>
+                    <ButtonText className={'Component_ButtonCustom__text'} color={props.color ? props.color : "pink"}>
                         {props.children}
-                    </span>
+                    </ButtonText>
                 }
-            </Button>
-        </div>
+            </ButtonStyle>
+        </ButtonWrapper>
     );
 };
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 12px;
+`;
+
+const ButtonStyle = styled(Button)<{color: "pink" | "white"}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: ${props => props.color === "pink" ? "#f53557" : "white"};
+`;
+
+const LoadingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ButtonText = styled.div<{color: "pink" | "white"}>`
+  font-size: 24px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  color: ${props => props.color === "white" ? "#f53557" : "white"};
+`;

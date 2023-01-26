@@ -60,7 +60,7 @@ export const TabsList: React.FC<Props> = (props) => {
                             ref={el => childRefs.current.set(1, el)}
                             onClick={() => setValue(1)}
                         >
-                            <PictogramCustom name={value === 1 ? 'AddPink' : 'AddGrey'} width={'50px'}/>
+                            <PictogramCustom name={value === 1 ? 'AddPink' : 'AddGrey'} width={'55px'}/>
                         </motion.div>
                         <motion.div
                             className={value === 2 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}

@@ -157,6 +157,7 @@ export const Quizz = (props: Props) => {
         >
             <div className={'Component_Quizz__contentWrapper'}>
                 <div className={'Component_Quizz__instruction'}>{quizzMode === null ? "Quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</div>
+                <div>
                 {quizzMode !== null &&
                     <div className={'Component_Quizz__quizzDetailsWrapper'}>
                         <div className={'Component_Quizz__text'}>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</div>
@@ -175,26 +176,28 @@ export const Quizz = (props: Props) => {
                     />
 /*
 <CardGame />*/
-}
-{quizzMode === null &&
-<div className={'Component_Quizz__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
-    <div className={'Component_Quizz__card'}>
-        <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
-        <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
-        <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-        <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
-    </div>
-    <div className={'Component_Quizz__card'}>
-        <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
-        <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
-        <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
-    </div>
-</div>
-}
-<ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
-{modalContent.body}
-</ModalCustom>
-</div>
-</motion.div>
-);
+                }
+                </div>
+                {quizzMode === null &&
+                    <div className={'Component_Quizz__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
+                        <div className={'Component_Quizz__card'}>
+                            <div className={'Component_Quizz__cardTitle'}>Random quizz</div>
+                            <div className={'Component_Quizz__subtitle'}>Choose the number of questions to pick randomly from your database.</div>
+                            <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
+                            <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
+                        </div>
+                        <div className={'Component_Quizz__card'}>
+                            <div className={'Component_Quizz__cardTitle'}>Training quizz</div>
+                            <div className={'Component_Quizz__subtitle'}>Work on the vocabulary you have difficulties with.</div>
+                            <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
+                {modalContent.body}
+            </ModalCustom>
+        </motion.div>
+    );
 };

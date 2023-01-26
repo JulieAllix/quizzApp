@@ -98,7 +98,7 @@ export const Form = (props: Props) => {
         >
             <div className={'Component_Form__contentWrapper'}>
                 <div className={'Component_Form__instruction'}>New quizz card</div>
-                <div className={'Component_Form__cardsWrapper'} style={{paddingBottom: "20px"}}>
+                <div className={'Component_Form__cardsWrapper'} style={{height: `${window.innerHeight*0.8}px`, paddingBottom: "20px"}}>
                     <div className={'Component_Form__card'}>
                         <div className={'Component_Form__cardTitle'}>{user.nativeLanguage} word</div>
                         <div className={'Component_Form__subtitle'}>Add a word in your mother tongue.</div>
@@ -109,7 +109,7 @@ export const Form = (props: Props) => {
                         <div className={'Component_Form__subtitle'}>Write the translation of the word you added in the language you are learning.</div>
                         <InputCustom value={languageToLearnValue} setValue={setLanguageToLearnValue}/>
                     </div>
-                    <ButtonCustom isLoading={isLoading} onClick={handleSend}>Save</ButtonCustom>
+                    <ButtonCustom isLoading={isLoading} onClick={handleSend} color={"white"}>Save</ButtonCustom>
                 </div>
 
                 <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
